@@ -12,6 +12,8 @@ import {
 } from "../../constants";
 import { ErrorData } from "../../types";
 import { getNextPosition } from "../../utils/getNextPosition";
+import PuzzleResultDisplay from "./PuzzleResultDisplay";
+import { PuzzleResult as Result } from "../../types";
 
 const { USERNAME, SINCE, UNTIL, MAX_GAMES } = TESTDATA;
 
@@ -24,6 +26,7 @@ const ChessTrainer = () => {
     x: 0,
     y: 0,
   });
+  const [puzzleResults, setPuzzleResults] = useState<Result[]>([]);
 
   useEffect(() => {
     const fetchGamesByUser = async (
@@ -78,14 +81,18 @@ const ChessTrainer = () => {
 
   return (
     <div className="flex flex-row-reverse justify-center items-center gap-10">
-      <InfoDisplay
-        fen={fen}
-        gameErrors={gameErrors}
-        gameError={gameError}
-        imageSrc={imageSrc}
-        movePlayed={movePlayed}
-        feedbackMessage={feedbackMessage}
-      />
+      <div className="flex flex-col justify-center items-center">
+        <PuzzleResultDisplay puzzleResults={puzzleResults} />
+        <InfoDisplay
+          fen={fen}
+          gameErrors={gameErrors}
+          gameError={gameError}
+          imageSrc={imageSrc}
+          movePlayed={movePlayed}
+          feedbackMessage={feedbackMessage}
+        />
+      </div>
+
       <div>
         <Board
           initialFen={fen}
@@ -95,11 +102,13 @@ const ChessTrainer = () => {
           bestMove={bestMove}
           fen={fen}
           setFen={setFen}
+          puzzlesResult={puzzleResults}
+          setPuzzlesResult={setPuzzleResults}
+          currentIndex={currentIndex}
         />
         <Button
           text="Next Puzzle"
-          textColor="white"
-          bgColor="blue"
+         
           onClick={() =>
             getNextPosition(gameErrors, currentIndex, setCurrentIndex, setFen)
           }

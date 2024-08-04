@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import { Chessboard } from "react-chessboard";
 import { Chess } from "chess.js";
+import { PuzzleResult } from "../../types";
 
 
 type BoardProps = {
@@ -17,6 +18,9 @@ type BoardProps = {
   bestMove: string | undefined;
   colorToPlay: "white" | "black";
   setMovePlayed: Dispatch<SetStateAction<boolean>>;
+  puzzlesResult : PuzzleResult[],
+  setPuzzlesResult : Dispatch<SetStateAction<PuzzleResult[]>>;
+  currentIndex : {x : number, y:number}
 };
 
 const Board: React.FC<BoardProps> = ({
@@ -27,6 +31,9 @@ const Board: React.FC<BoardProps> = ({
   setFeedbackMessage,
   colorToPlay,
   setMovePlayed,
+  puzzlesResult,
+  setPuzzlesResult,
+  currentIndex
 }) => {
   const [game, setGame] = useState<Chess>(new Chess(initialFen));
 
@@ -47,9 +54,12 @@ const Board: React.FC<BoardProps> = ({
 
       if (move.lan !== bestMove) {
         setFeedbackMessage(`${move.san} is incorrect`);
+        setPuzzlesResult([{x : currentIndex.x, y: currentIndex.y, correct: false},...puzzlesResult])
         setFen(initialFen);
+      
       } else {
         setFeedbackMessage(`${move.san} is correct`);
+        setPuzzlesResult([{x : currentIndex.x, y: currentIndex.y, correct: true},...puzzlesResult])
       }
 
       if (move === null) {

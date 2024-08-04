@@ -46,10 +46,11 @@ const Navbar = () => {
             <img
               src="/svgs/logo.svg"
               className="rounded-full"
-              style={{ height: "40px", width:"40px"}}
+              style={{ height: "40px", width: "40px" }}
               alt="TE Logo"
               loading="lazy"
             />
+            Lichess Mistake Trainer Tool
           </a>
           {/* Left navigation links */}
           <ul className="list-style-none me-auto flex flex-col ps-0 lg:flex-row">

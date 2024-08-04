@@ -12,6 +12,8 @@ import {
 } from "../../constants";
 import { ErrorData } from "../../types";
 import { getNextPosition } from "../../utils/getNextPosition";
+import PuzzleResultDisplay from "./PuzzleResultDisplay";
+import { PuzzleResult as Result } from "../../types";
 
 const { USERNAME, SINCE, UNTIL, MAX_GAMES } = TESTDATA;
 
@@ -24,6 +26,7 @@ const ChessTrainer = () => {
     x: 0,
     y: 0,
   });
+  const [puzzleResults, setPuzzleResults] = useState<Result[]>([]);
 
   useEffect(() => {
     const fetchGamesByUser = async (
@@ -41,14 +44,13 @@ const ChessTrainer = () => {
           },
         });
 
-
         if (!response.ok) {
           console.error(`Error ${response.status}: ${response.statusText}`);
           return;
         }
 
         const gamesErrorData = await splitNDJSON(response);
-      
+
         if (gamesErrorData) {
           setGameErrors(
             getErrorData(
@@ -78,33 +80,40 @@ const ChessTrainer = () => {
     gameErrors[currentIndex.x][currentIndex.y].evaluation.best;
 
   return (
-    <div >
+    <div className="flex flex-row-reverse justify-center items-center gap-10">
+      <div className="flex flex-col justify-center items-center">
+        <PuzzleResultDisplay puzzleResults={puzzleResults} />
+        <InfoDisplay
+          fen={fen}
+          gameErrors={gameErrors}
+          gameError={gameError}
+          imageSrc={imageSrc}
+          movePlayed={movePlayed}
+          feedbackMessage={feedbackMessage}
+        />
+      </div>
 
-      <InfoDisplay
-        fen={fen}
-        gameErrors={gameErrors}
-        gameError={gameError}
-        imageSrc={imageSrc}
-        movePlayed={movePlayed}
-        feedbackMessage={feedbackMessage}
-      />
-      <Board
-        initialFen={fen}
-        setFeedbackMessage={setFeedbackMessage}
-        colorToPlay={colorToPlay}
-        setMovePlayed={setMovePlayed}
-        bestMove={bestMove}
-        fen={fen}
-        setFen={setFen}
-      />
-      <Button
-        text="Next Puzzle"
-        textColor="white"
-        bgColor="blue"
-        onClick={() =>
-          getNextPosition(gameErrors, currentIndex, setCurrentIndex, setFen)
-        }
-      />
+      <div>
+        <Board
+          initialFen={fen}
+          setFeedbackMessage={setFeedbackMessage}
+          colorToPlay={colorToPlay}
+          setMovePlayed={setMovePlayed}
+          bestMove={bestMove}
+          fen={fen}
+          setFen={setFen}
+          puzzlesResult={puzzleResults}
+          setPuzzlesResult={setPuzzleResults}
+          currentIndex={currentIndex}
+        />
+        <Button
+          text="Next Puzzle"
+         
+          onClick={() =>
+            getNextPosition(gameErrors, currentIndex, setCurrentIndex, setFen)
+          }
+        />
+      </div>
     </div>
   );
 };

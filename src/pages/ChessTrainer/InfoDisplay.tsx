@@ -1,5 +1,8 @@
+import Button from "../../components/Button";
+import DisplayWrapper from "../../components/DisplayWrapper";
 import { ERRORPNGMAP, STARTINGPOSFEN } from "../../constants";
 import { ErrorData } from "../../types";
+import { getNextPosition } from "../../utils/getNextPosition";
 
 interface InfoDisplayProps {
   fen: string;
@@ -19,15 +22,15 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({
   feedbackMessage,
 }) => {
   return (
-    <div className="mb-9 mt-8">
+    <DisplayWrapper>
       <h3>
         {gameErrors.length && fen !== STARTINGPOSFEN ? (
           <div
-            className="w-4/5 h-12 flex flex-row justify-start items-center gap-5 p-2 mb-4 text-md  rounded-lg dark:text-black"
+            className="w-4/5 h-12 flex flex-row justify-start items-center gap-5 p-2 mb-4 text-md  rounded-lg "
             role="alert"
           >
             <img src={imageSrc} width={40} alt="Error Indicator" />
-            <h1>{`${gameError.move} was played`}</h1>
+            <h1>{`${gameError.move} was played in the game`}</h1>
           </div>
         ) : null}
       </h3>
@@ -50,7 +53,7 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({
           />
         ) : (
           <div>
-            {fen != STARTINGPOSFEN && (
+            {fen != STARTINGPOSFEN ? (
               <div className="flex justify-start items-center gap-5">
                 <img
                   width={40}
@@ -71,13 +74,15 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({
                       gameError.colorToPlay.substring(1)}{" "}
                 </h3>
               </div>
+            ) : (
+              <div>No Puzzle Issued</div>
             )}
           </div>
         )}
 
         <h3>{feedbackMessage}</h3>
       </div>
-    </div>
+    </DisplayWrapper>
   );
 };
 

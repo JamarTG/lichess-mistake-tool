@@ -14,3 +14,9 @@ export interface ErrorData {
   fen: string;
   colorToPlay: string;
 }
+
+export interface PuzzleResult {
+  x: number;
+  y: number;
+  correct: boolean;
+}

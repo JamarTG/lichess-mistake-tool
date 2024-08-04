@@ -69,7 +69,7 @@ const Board: React.FC<BoardProps> = ({
     <Chessboard
       position={fen}
       onPieceDrop={handlePieceDrop}
-      boardWidth={550}
+      boardWidth={500}
       boardOrientation={colorToPlay}
     />
   );

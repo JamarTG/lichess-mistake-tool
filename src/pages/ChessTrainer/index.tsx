@@ -77,7 +77,8 @@ const ChessTrainer = () => {
     gameErrors[currentIndex.x][currentIndex.y].evaluation.best;
 
   return (
-    <>
+    <div >
+
       <InfoDisplay
         fen={fen}
         gameErrors={gameErrors}
@@ -96,13 +97,14 @@ const ChessTrainer = () => {
         setFen={setFen}
       />
       <Button
-        text="Click Me"
-        variant="primary"
+        text="Next Puzzle"
+        textColor="white"
+        bgColor="blue"
         onClick={() =>
           getNextPosition(gameErrors, currentIndex, setCurrentIndex, setFen)
         }
       />
-    </>
+    </div>
   );
 };
 

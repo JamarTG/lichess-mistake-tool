@@ -33,7 +33,9 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({
       </h3>
 
       <div
-        className={"w-4/5 h-12 flex flex-row justify-start items-center gap-5 p-2 mb-4 text-md  rounded-md dark:text-black"}
+        className={
+          "w-4/5 h-12 flex flex-row justify-start items-center gap-5 p-2 mb-4 text-md  rounded-md dark:text-black"
+        }
         role="alert"
       >
         {fen !== STARTINGPOSFEN && movePlayed ? (
@@ -47,19 +49,29 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({
             alt=""
           />
         ) : (
-          <div className="flex justify-start items-center gap-5">
-            <img
-              width={40}
-              src={
-                gameError &&
-                fen != STARTINGPOSFEN &&
-                gameError.colorToPlay === "white"
-                  ? "/wK.svg"
-                  : "/bK.svg"
-              }
-              alt=""
-            />
-            <h2>Find The Solution . . .</h2>
+          <div>
+            {fen != STARTINGPOSFEN && (
+              <div className="flex justify-start items-center gap-5">
+                <img
+                  width={40}
+                  src={
+                    gameError &&
+                    fen != STARTINGPOSFEN &&
+                    gameError.colorToPlay === "white"
+                      ? "/wK.svg"
+                      : "/bK.svg"
+                  }
+                  alt=""
+                />
+
+                <h2>
+                  {gameError &&
+                    gameError.colorToPlay[0].toUpperCase() +
+                      gameError.colorToPlay.substring(1)}{" "}
+                  to play{" "}
+                </h2>
+              </div>
+            )}
           </div>
         )}
 

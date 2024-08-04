@@ -19,7 +19,7 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({
   feedbackMessage,
 }) => {
   return (
-    <div>
+    <div className="mb-9 mt-8">
       <h3>
         {gameErrors.length && fen !== STARTINGPOSFEN ? (
           <div
@@ -27,14 +27,14 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({
             role="alert"
           >
             <img src={imageSrc} width={40} alt="Error Indicator" />
-            <p>{`${gameError.move} was played`}</p>
+            <h1>{`${gameError.move} was played`}</h1>
           </div>
         ) : null}
       </h3>
 
       <div
         className={
-          "w-4/5 h-12 flex flex-row justify-start items-center gap-5 p-2 mb-4 text-md  rounded-md dark:text-black"
+          "w-4/5 h-12 flex flex-row justify-start items-center gap-5 p-2  text-md "
         }
         role="alert"
       >
@@ -58,18 +58,18 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({
                     gameError &&
                     fen != STARTINGPOSFEN &&
                     gameError.colorToPlay === "white"
-                      ? "/wK.svg"
-                      : "/bK.svg"
+                      ? "/svgs/pieces/wK.svg"
+                      : "/svgs/pieces/bK.svg"
                   }
                   alt=""
                 />
 
-                <h2>
+                <h3>
+                  Find the best move for{" "}
                   {gameError &&
                     gameError.colorToPlay[0].toUpperCase() +
                       gameError.colorToPlay.substring(1)}{" "}
-                  to play{" "}
-                </h2>
+                </h3>
               </div>
             )}
           </div>

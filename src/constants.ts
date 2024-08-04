@@ -1,9 +1,9 @@
 export const ERRORPNGMAP = {
-  Inaccuracy: "/inaccuracy.png",
-  Blunder: "/blunder.png",
-  Mistake: "/mistake.png",
-  Best: "/best.png",
-  Wrong: "/wrong.png",
+  Inaccuracy: "/images/inaccuracy.png",
+  Blunder: "/images/blunder.png",
+  Mistake: "/images/mistake.png",
+  Best: "/images/best.png",
+  Wrong: "/images/wrong.png",
 };
 
 export const STARTINGPOSFEN =

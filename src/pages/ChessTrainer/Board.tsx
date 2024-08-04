@@ -38,7 +38,7 @@ const Board: React.FC<BoardProps> = ({
 
   const handlePieceDrop = useCallback(
     (sourceSquare: string, targetSquare: string) => {
-      // give feedback based on the correctness of move played and update the position
+      
       const move = game.move({
         from: sourceSquare,
         to: targetSquare,
@@ -46,7 +46,7 @@ const Board: React.FC<BoardProps> = ({
       });
 
       if (move.lan !== bestMove) {
-        setFeedbackMessage(`${move.san} is not correct. Try again`);
+        setFeedbackMessage(`${move.san} is incorrect`);
         setFen(initialFen);
       } else {
         setFeedbackMessage(`${move.san} is correct`);

@@ -41,13 +41,14 @@ const ChessTrainer = () => {
           },
         });
 
+
         if (!response.ok) {
           console.error(`Error ${response.status}: ${response.statusText}`);
           return;
         }
 
         const gamesErrorData = await splitNDJSON(response);
-
+      
         if (gamesErrorData) {
           setGameErrors(
             getErrorData(

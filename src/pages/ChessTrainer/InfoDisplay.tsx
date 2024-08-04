@@ -23,7 +23,7 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({
       <h3>
         {gameErrors.length && fen !== STARTINGPOSFEN ? (
           <div
-            className="w-4/5 h-12 flex flex-row justify-start items-center gap-5 p-2 mb-4 text-md  rounded-lg dark:bg-gray-800 dark:text-white"
+            className="w-4/5 h-12 flex flex-row justify-start items-center gap-5 p-2 mb-4 text-md  rounded-lg dark:text-black"
             role="alert"
           >
             <img src={imageSrc} width={40} alt="Error Indicator" />
@@ -33,7 +33,7 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({
       </h3>
 
       <div
-        className="w-4/5 h-12 flex flex-row justify-start items-center gap-5 p-2 mb-4 text-md  rounded-md  dark:bg-gray-800 dark:text-white"
+        className={"w-4/5 h-12 flex flex-row justify-start items-center gap-5 p-2 mb-4 text-md  rounded-md dark:text-black"}
         role="alert"
       >
         {fen !== STARTINGPOSFEN && movePlayed ? (

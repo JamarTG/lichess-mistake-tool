@@ -6,14 +6,15 @@ Welcome to **Learn From Your Mistakes 2.0**, an enhancement to the popular "Lear
 
 
 ## Preview
-![alt text](image.png)
+<p align="center">
+  <img src="image.png" alt="alt text" width="399" height="490">
+</p>
 
 
 ## Features
 
 - **Puzzle Format Games**: Play games in a puzzle format in bulk, allowing you to practice and learn from multiple mistakes efficiently.
 - **Time Period Specification**: Specify a time period to filter games so that you can focus on recent games or any other time frame.
-- **Computer Analysis Requirement**: Ensure that a computer has analyzed the games to include their mistakes within the specified time period.
 
 ## How It Works
 

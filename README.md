@@ -5,8 +5,8 @@
 Welcome to **Learn From Your Mistakes 2.0**, an enhancement to the popular "Learn From Your Mistakes" feature on Lichess. This repository provides a more engaging and efficient way to review and learn from your chess games by serving mistake puzzles in bulks
 
 
-
-
+## Preview
+![alt text](image.png)
 
 
 ## Features

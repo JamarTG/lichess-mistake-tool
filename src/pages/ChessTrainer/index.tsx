@@ -41,14 +41,13 @@ const ChessTrainer = () => {
           },
         });
 
-
         if (!response.ok) {
           console.error(`Error ${response.status}: ${response.statusText}`);
           return;
         }
 
         const gamesErrorData = await splitNDJSON(response);
-      
+
         if (gamesErrorData) {
           setGameErrors(
             getErrorData(
@@ -78,8 +77,7 @@ const ChessTrainer = () => {
     gameErrors[currentIndex.x][currentIndex.y].evaluation.best;
 
   return (
-    <div >
-
+    <div className="flex flex-row-reverse justify-center items-center gap-10">
       <InfoDisplay
         fen={fen}
         gameErrors={gameErrors}
@@ -88,23 +86,25 @@ const ChessTrainer = () => {
         movePlayed={movePlayed}
         feedbackMessage={feedbackMessage}
       />
-      <Board
-        initialFen={fen}
-        setFeedbackMessage={setFeedbackMessage}
-        colorToPlay={colorToPlay}
-        setMovePlayed={setMovePlayed}
-        bestMove={bestMove}
-        fen={fen}
-        setFen={setFen}
-      />
-      <Button
-        text="Next Puzzle"
-        textColor="white"
-        bgColor="blue"
-        onClick={() =>
-          getNextPosition(gameErrors, currentIndex, setCurrentIndex, setFen)
-        }
-      />
+      <div>
+        <Board
+          initialFen={fen}
+          setFeedbackMessage={setFeedbackMessage}
+          colorToPlay={colorToPlay}
+          setMovePlayed={setMovePlayed}
+          bestMove={bestMove}
+          fen={fen}
+          setFen={setFen}
+        />
+        <Button
+          text="Next Puzzle"
+          textColor="white"
+          bgColor="blue"
+          onClick={() =>
+            getNextPosition(gameErrors, currentIndex, setCurrentIndex, setFen)
+          }
+        />
+      </div>
     </div>
   );
 };

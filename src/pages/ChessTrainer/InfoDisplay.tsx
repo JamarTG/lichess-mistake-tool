@@ -19,11 +19,11 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({
   feedbackMessage,
 }) => {
   return (
-    <div className="mb-9 mt-8">
+    <div className="text-neutral-700 mb-9 mt-8 rounded-lg p-10">
       <h3>
         {gameErrors.length && fen !== STARTINGPOSFEN ? (
           <div
-            className="w-4/5 h-12 flex flex-row justify-start items-center gap-5 p-2 mb-4 text-md  rounded-lg dark:text-black"
+            className="w-4/5 h-12 flex flex-row justify-start items-center gap-5 p-2 mb-4 text-md  rounded-lg "
             role="alert"
           >
             <img src={imageSrc} width={40} alt="Error Indicator" />

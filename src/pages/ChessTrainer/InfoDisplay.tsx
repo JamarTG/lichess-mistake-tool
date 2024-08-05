@@ -41,7 +41,7 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({
         }
         role="alert"
       >
-        {fen !== STARTINGPOSFEN && movePlayed ? (
+        {/* {fen !== STARTINGPOSFEN && movePlayed ? (
           <img
             width={40}
             src={
@@ -51,7 +51,7 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({
             }
             alt=""
           />
-        ) : (
+        ) : ( */}
           <div>
             {fen != STARTINGPOSFEN ? (
               <div className="flex justify-start items-center gap-5">
@@ -78,9 +78,10 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({
               <div>No Puzzle Issued</div>
             )}
           </div>
-        )}
+        {/* )
+        } */}
 
-        <h3>{feedbackMessage}</h3>
+        {/* <h3>{feedbackMessage}</h3> */}
       </div>
     </DisplayWrapper>
   );

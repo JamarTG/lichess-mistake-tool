@@ -13,8 +13,8 @@ const DisplayWrapper: React.FC<DisplayWrapperProps> = ({
 
   return (
     <div
-      style={{ height: 210, width: 500 }}
-      className={`${isFlex ? flexStyles : ""} bg-neutral-600 text-white rounded-lg p-10 mb-10`}
+      style={{ height: 210, width: 300 }}
+      className={`${isFlex ? flexStyles : ""} bg-neutral-600 text-white rounded-lg p-5 mb-10`}
     >
       {children}
     </div>

@@ -98,6 +98,7 @@ const ChessTrainer = () => {
           initialFen={fen}
           setFeedbackMessage={setFeedbackMessage}
           colorToPlay={colorToPlay}
+          movePlayed={movePlayed}
           setMovePlayed={setMovePlayed}
           bestMove={bestMove}
           fen={fen}
@@ -109,8 +110,12 @@ const ChessTrainer = () => {
         <Button
           text="Next Puzzle"
          
-          onClick={() =>
+          onClick={() =>{
+            
             getNextPosition(gameErrors, currentIndex, setCurrentIndex, setFen)
+            setMovePlayed(false);
+          }
+            
           }
         />
       </div>

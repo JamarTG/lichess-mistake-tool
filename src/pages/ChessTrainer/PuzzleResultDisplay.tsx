@@ -12,7 +12,7 @@ const PuzzleResultDisplay: React.FC<PuzzleResultProps> = ({
     <DisplayWrapper isFlex>
       {puzzleResults.length
         ? puzzleResults.map((puzzleResult: PuzzleResult) => (
-            <div className="m-1" key={`${puzzleResult.x}-${puzzleResult.y}`}>
+            <div className={`flex justify-center items-center p-3 rounded-md m-1 h-5  text-center bg-${puzzleResult.correct ? "blue" : "red"}-400`} key={`${puzzleResult.x}-${puzzleResult.y}`}>
 
               <img
                 width={20}

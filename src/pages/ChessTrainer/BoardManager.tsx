@@ -90,13 +90,13 @@ const BoardManager: React.FC<BoardProps> = ({
         if (isBestMove) {
           playMoveWithDelay(1, setMarkerType, variationMoves, game, setFen);
         } else {
-          setTimeout(() => {
+          
             game.load(initialFen);
             setFen(initialFen);
             playMoveWithDelay(0, setMarkerType, variationMoves, game, setFen);
-          }, 1000);
+       
         }
-      });
+      },1000);
 
       return true;
     },

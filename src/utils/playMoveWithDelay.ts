@@ -1,5 +1,6 @@
 import { Chess } from "chess.js";
 import { Dispatch, SetStateAction } from "react";
+import { playVariationSound } from "./playSound";
 
 const playMoveWithDelay = (
   index: number,
@@ -12,6 +13,7 @@ const playMoveWithDelay = (
   if (index < variationMoves.length) {
     setTimeout(() => {
       const result = game.move(variationMoves[index]);
+      playVariationSound(game, result);
       setFen(game.fen());
 
       if (result !== null) {

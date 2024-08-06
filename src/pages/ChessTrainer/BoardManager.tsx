@@ -14,6 +14,7 @@ import { Chess } from "chess.js";
 import { ErrorData, PuzzleResult } from "../../types";
 import getSquareCoordinates from "../../utils/getSqrCoords";
 import { customBoardStyles, boardDimension } from "../../constants";
+import { playGameSound } from "../../utils/playSound";
 
 type BoardProps = {
   initialFen: string;
@@ -70,6 +71,8 @@ const BoardManager: React.FC<BoardProps> = ({
 
       const isBestMove = move.lan === bestMove;
 
+      playGameSound(isBestMove);
+
       if (move === null || movePlayed) {
         return false;
       }
@@ -90,13 +93,11 @@ const BoardManager: React.FC<BoardProps> = ({
         if (isBestMove) {
           playMoveWithDelay(1, setMarkerType, variationMoves, game, setFen);
         } else {
-          
-            game.load(initialFen);
-            setFen(initialFen);
-            playMoveWithDelay(0, setMarkerType, variationMoves, game, setFen);
-       
+          game.load(initialFen);
+          setFen(initialFen);
+          playMoveWithDelay(0, setMarkerType, variationMoves, game, setFen);
         }
-      },1000);
+      }, 1000);
 
       return true;
     },

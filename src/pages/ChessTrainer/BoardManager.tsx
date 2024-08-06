@@ -84,14 +84,17 @@ const BoardManager: React.FC<BoardProps> = ({
     },
     [
       game,
-      setFen,
       initialFen,
       bestMove,
+      movePlayed,
+      currentIndex,
+      puzzlesResult,
+      setFen,
       setFeedbackMessage,
       setMovePlayed,
       setPuzzlesResult,
-      currentIndex,
-      puzzlesResult,
+      setMarkerType,
+      setTargetSquare,
     ]
   );
 

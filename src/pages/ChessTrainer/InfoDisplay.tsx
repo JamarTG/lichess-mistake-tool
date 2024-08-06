@@ -1,4 +1,4 @@
-import DisplayWrapper from "../../components/DisplayWrapper";
+import DisplayWrapper from "./DisplayWr";
 import { ErrorData } from "../../types";
 import ColorToPlay from "./ColorToPlay";
 import GameError from "./GameError";
@@ -20,7 +20,7 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({
   movePlayed,
 }) => {
   return (
-    <DisplayWrapper className="grid grid-cols-10 gap-5 justify-center items-center bg-neutral-600 text-white rounded-lg mb-10">
+    <DisplayWrapper>
       <GameError
         fen={fen}
         imageSrc={imageSrc}

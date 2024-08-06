@@ -1,11 +1,11 @@
-import DisplayWrapper from "../../components/DisplayWrapper";
+import DisplayWrapper from "./DisplayWr";
 import { PuzzleResult } from "../../types";
 
 interface PuzzleResultProps {
   puzzleResults: PuzzleResult[];
 }
 
-const ResultDisplay: React.FC<PuzzleResultProps> = ({  puzzleResults }) => {
+const ResultDisplay: React.FC<PuzzleResultProps> = ({ puzzleResults }) => {
   return (
     <DisplayWrapper className="grid grid-cols-12 justify-center  bg-neutral-600 text-white rounded-lg mb-10 p-2">
       {puzzleResults.length

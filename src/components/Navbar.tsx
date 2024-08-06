@@ -40,34 +40,29 @@ const Navbar = () => {
         >
           {/* Logo */}
           <a
-            className="mb-4 me-5 ms-2 mt-3 flex items-center text-neutral-900 hover:text-neutral-900 dark:text-neutral-200 lg:mb-0 lg:mt-0"
+            className="mb-4 me-5 ms-2 mt-3 flex items-center text-xl text-neutral-900  dark:text-neutral-200 lg:mb-0 lg:mt-0"
             href="#"
           >
-            <img
-              src="/svgs/logo.svg"
-              className="rounded-full"
-              style={{ height: "40px", width: "40px" }}
-              alt="TE Logo"
-              loading="lazy"
-            />
-            Lichess Mistake Trainer Tool
+          
+         
+            Learn From Your Mistakes 2.0
           </a>
           {/* Left navigation links */}
           <ul className="list-style-none me-auto flex flex-col ps-0 lg:flex-row">
-            <li className="mb-4 lg:mb-0 lg:pe-2">
+            {/* <li className="mb-4 lg:mb-0 lg:pe-2">
               <a
                 className="text-black/60 transition duration-200 hover:text-black/80 dark:text-white/60 dark:hover:text-white/80 lg:px-2"
                 href="#"
               >
                 Dashboard
               </a>
-            </li>
+            </li> */}
             <li className="mb-4 lg:mb-0 lg:pe-2">
               <a
                 className="text-black/60 transition duration-200 hover:text-black/80 dark:text-white/60 dark:hover:text-white/80 lg:px-2"
                 href="#"
               >
-                Entry Page
+                Trainer
               </a>
             </li>
             <li className="mb-4 lg:mb-0 lg:pe-2">
@@ -75,7 +70,7 @@ const Navbar = () => {
                 className="text-black/60 transition duration-200 hover:text-black/80 dark:text-white/60 dark:hover:text-white/80 lg:px-2"
                 href="#"
               >
-                Mistake Trainer
+                How To Use
               </a>
             </li>
           </ul>

@@ -8,8 +8,9 @@
 ## Preview
 
 <div style="display: flex; justify-content: center; align-items: center;">
-  <img src="https://github.com/user-attachments/assets/89fa642b-9040-46cc-b0bc-b9d17320d7d8" alt="description" style="width: 430px; height: 490px; margin-right: 10px;" />
-  <img src="https://github.com/user-attachments/assets/71a8065a-251a-4dd8-bb6e-65ff46e1fd2e" alt="description" style="width: 430px; height: 490px;" />
+ 
+  ![image](https://github.com/user-attachments/assets/5cf0a5fe-1013-4d68-9334-b79ba535dcc4)
+
 </div>
 
 

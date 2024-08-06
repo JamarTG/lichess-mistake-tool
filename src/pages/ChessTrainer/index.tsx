@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Board from "./Board";
+import BoardManager from "./BoardManager";
 import InfoDisplay from "./InfoDisplay";
 import Button from "../../components/Button";
 import getErrorData from "../../utils/getErrorData";
@@ -12,7 +12,7 @@ import {
 } from "../../constants";
 import { ErrorData } from "../../types";
 import { getNextPosition } from "../../utils/getNextPosition";
-import PuzzleResultDisplay from "./PuzzleResultDisplay";
+import ResultDisplay from "./ResultDisplay";
 import { PuzzleResult as Result } from "../../types";
 
 const { USERNAME, SINCE, UNTIL, MAX_GAMES } = TESTDATA;
@@ -27,6 +27,8 @@ const ChessTrainer = () => {
     y: 0,
   });
   const [puzzleResults, setPuzzleResults] = useState<Result[]>([]);
+  const [targetSquare, setTargetSquare] = useState<string | null>("");
+  const [markerType, setMarkerType] = useState<"best" | "wrong" | null>(null);
 
   useEffect(() => {
     const fetchGamesByUser = async (
@@ -82,7 +84,7 @@ const ChessTrainer = () => {
   return (
     <div className="flex flex-row-reverse justify-center items-center gap-10">
       <div className="flex flex-col justify-center items-center">
-        <PuzzleResultDisplay puzzleResults={puzzleResults} />
+        <ResultDisplay puzzleResults={puzzleResults} />
         <InfoDisplay
           fen={fen}
           gameErrors={gameErrors}
@@ -94,10 +96,11 @@ const ChessTrainer = () => {
       </div>
 
       <div>
-        <Board
+        <BoardManager
           initialFen={fen}
           setFeedbackMessage={setFeedbackMessage}
           colorToPlay={colorToPlay}
+          movePlayed={movePlayed}
           setMovePlayed={setMovePlayed}
           bestMove={bestMove}
           fen={fen}
@@ -105,13 +108,17 @@ const ChessTrainer = () => {
           puzzlesResult={puzzleResults}
           setPuzzlesResult={setPuzzleResults}
           currentIndex={currentIndex}
+          targetSquare={targetSquare}
+          setTargetSquare={setTargetSquare}
+          markerType={markerType}
+          setMarkerType={setMarkerType}
         />
         <Button
-          text="Next Puzzle"
-         
-          onClick={() =>
-            getNextPosition(gameErrors, currentIndex, setCurrentIndex, setFen)
-          }
+          text={fen !== STARTINGPOSFEN ? "Skip Puzzle" : "Start Training"}
+          onClick={() => {
+            setMarkerType(null);
+            getNextPosition(gameErrors, currentIndex, setCurrentIndex, setFen);
+          }}
         />
       </div>
     </div>

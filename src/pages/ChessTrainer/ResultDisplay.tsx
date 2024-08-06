@@ -5,18 +5,15 @@ interface PuzzleResultProps {
   puzzleResults: PuzzleResult[];
 }
 
-const PuzzleResultDisplay: React.FC<PuzzleResultProps> = ({
-  puzzleResults,
-}) => {
+const ResultDisplay: React.FC<PuzzleResultProps> = ({ puzzleResults }) => {
   return (
     <DisplayWrapper isFlex>
       {puzzleResults.length
         ? puzzleResults.map((puzzleResult: PuzzleResult) => (
             <div className="m-1" key={`${puzzleResult.x}-${puzzleResult.y}`}>
-
               <img
-                width={20}
-                src={`/svgs/ui/${puzzleResult.correct ? "check" : "x"}.svg`}
+                width={40}
+                src={`/images/${puzzleResult.correct ? "best" : "wrong"}.png`}
                 alt="displays-puzzle-result"
               />
             </div>
@@ -26,4 +23,4 @@ const PuzzleResultDisplay: React.FC<PuzzleResultProps> = ({
   );
 };
 
-export default PuzzleResultDisplay;
+export default ResultDisplay;

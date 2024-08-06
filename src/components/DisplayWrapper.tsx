@@ -5,16 +5,11 @@ interface DisplayWrapperProps {
   isFlex?: boolean;
 }
 
-const DisplayWrapper: React.FC<DisplayWrapperProps> = ({
-  children,
-  isFlex = false,
-}) => {
-  const flexStyles = "flex flex-row gap-5";
-
+const DisplayWrapper: React.FC<DisplayWrapperProps> = ({ children }) => {
   return (
     <div
-      style={{ height: 210, width: 500 }}
-      className={`${isFlex ? flexStyles : ""} bg-neutral-600 text-white rounded-lg p-10 mb-10`}
+      style={{ height: 210, width: 800 }}
+      className={`grid grid-col-10 gap-5 justify-center items-center bg-neutral-600 text-white rounded-lg mb-10`}
     >
       {children}
     </div>

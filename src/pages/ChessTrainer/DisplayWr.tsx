@@ -9,7 +9,7 @@ const DisplayWrapper: React.FC<DisplayWrapperProps> = ({
   className,
   children,
 }) => {
-  return <div className={className}>{children}</div>;
-};
+  return <div style={{width:600, height:250}} className={className}>{children}</div>;
+}
 
 export default DisplayWrapper;

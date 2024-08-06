@@ -15,10 +15,14 @@ import { getNextPosition } from "../../utils/getNextPosition";
 import ResultDisplay from "./ResultDisplay";
 import { PuzzleResult as Result } from "../../types";
 
-const { USERNAME, SINCE, UNTIL, MAX_GAMES } = TESTDATA;
 
-const ChessTrainer = () => {
-  const [gameErrors, setGameErrors] = useState<ErrorData[][]>([]);
+
+interface ChessTrainerProps {
+  gameErrors: ErrorData[][]
+}
+
+const ChessTrainer: React.FC<ChessTrainerProps> = ({gameErrors}) => {
+  
   const [feedbackMessage, setFeedbackMessage] = useState<string>("");
   const [fen, setFen] = useState(STARTINGPOSFEN);
   const [movePlayed, setMovePlayed] = useState<boolean>(false);
@@ -30,44 +34,7 @@ const ChessTrainer = () => {
   const [targetSquare, setTargetSquare] = useState<string | null>("");
   const [markerType, setMarkerType] = useState<"best" | "wrong" | null>(null);
 
-  useEffect(() => {
-    const fetchGamesByUser = async (
-      username: string,
-      since: number,
-      until: number,
-      maxGames: number
-    ) => {
-      try {
-        const url = `${API_BASE_URL}${username}?since=${since}&until=${until}&max=${maxGames}&evals=true&analysed=true`;
 
-        const response = await fetch(url, {
-          headers: {
-            Accept: "application/x-ndjson",
-          },
-        });
-
-        if (!response.ok) {
-          console.error(`Error ${response.status}: ${response.statusText}`);
-          return;
-        }
-
-        const gamesErrorData = await splitNDJSON(response);
-
-        if (gamesErrorData) {
-          setGameErrors(
-            getErrorData(
-              gamesErrorData.gamesMoves,
-              gamesErrorData.gamesAnalysis
-            )
-          );
-        }
-      } catch (error) {
-        console.error("Error fetching games:", error);
-      }
-    };
-
-    fetchGamesByUser(USERNAME, SINCE, UNTIL, MAX_GAMES);
-  }, []);
 
   const gameError = gameErrors[currentIndex.x]?.[currentIndex.y];
   const judgmentName = gameError?.evaluation.judgment?.name;

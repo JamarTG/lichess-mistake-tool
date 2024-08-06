@@ -9,12 +9,10 @@ import getErrorData from "../../utils/getErrorData";
 
 const Main = () => {
   const [username, setUsername] = useState<string>("");
-  const [maxNoGames, setMaxNoGames] = useState<number>(1);
-  const [startDate, setStartDate] = useState<string>(formatDate(new Date()));
+  const [maxNoGames, setMaxNoGames] = useState<number>(10);
+  const [startDate, setStartDate] = useState<string>(formatDate(new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)));
   const [endDate, setEndDate] = useState<string>(formatDate(new Date()));
-
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
-
   const [gameErrors, setGameErrors] = useState<ErrorData[][]>([]);
 
   const handleSubmit = async (event: FormEvent<HTMLButtonElement>) => {

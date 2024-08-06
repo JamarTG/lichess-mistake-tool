@@ -1,28 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import BoardManager from "./BoardManager";
 import InfoDisplay from "./InfoDisplay";
 import Button from "../../components/Button";
-import getErrorData from "../../utils/getErrorData";
-import { splitNDJSON } from "../../utils/splitNDJSON";
 import {
   ERRORPNGMAP,
   STARTINGPOSFEN,
-  TESTDATA,
-  API_BASE_URL,
 } from "../../constants";
 import { ErrorData } from "../../types";
 import { getNextPosition } from "../../utils/getNextPosition";
 import ResultDisplay from "./ResultDisplay";
 import { PuzzleResult as Result } from "../../types";
 
-
-
 interface ChessTrainerProps {
-  gameErrors: ErrorData[][]
+  gameErrors: ErrorData[][];
 }
 
-const ChessTrainer: React.FC<ChessTrainerProps> = ({gameErrors}) => {
-  
+const ChessTrainer: React.FC<ChessTrainerProps> = ({ gameErrors }) => {
   const [feedbackMessage, setFeedbackMessage] = useState<string>("");
   const [fen, setFen] = useState(STARTINGPOSFEN);
   const [movePlayed, setMovePlayed] = useState<boolean>(false);
@@ -33,8 +26,6 @@ const ChessTrainer: React.FC<ChessTrainerProps> = ({gameErrors}) => {
   const [puzzleResults, setPuzzleResults] = useState<Result[]>([]);
   const [targetSquare, setTargetSquare] = useState<string | null>("");
   const [markerType, setMarkerType] = useState<"best" | "wrong" | null>(null);
-
-
 
   const gameError = gameErrors[currentIndex.x]?.[currentIndex.y];
   const judgmentName = gameError?.evaluation.judgment?.name;
@@ -84,7 +75,7 @@ const ChessTrainer: React.FC<ChessTrainerProps> = ({gameErrors}) => {
           text={fen !== STARTINGPOSFEN ? "Skip Puzzle" : "Start Training"}
           onClick={() => {
             setMarkerType(null);
-            setMovePlayed(false)
+            setMovePlayed(false);
             getNextPosition(gameErrors, currentIndex, setCurrentIndex, setFen);
           }}
         />

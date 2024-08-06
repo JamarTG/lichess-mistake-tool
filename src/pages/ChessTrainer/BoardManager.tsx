@@ -7,6 +7,8 @@ import React, {
   CSSProperties,
 } from "react";
 
+import playMoveWithDelay from "../../utils/playMoveWithDelay";
+
 import { Chessboard } from "react-chessboard";
 import { Chess } from "chess.js";
 import { ErrorData, PuzzleResult } from "../../types";
@@ -29,7 +31,7 @@ type BoardProps = {
   setTargetSquare: Dispatch<SetStateAction<string | null>>;
   markerType: "wrong" | "best" | null;
   setMarkerType: Dispatch<SetStateAction<"wrong" | "best" | null>>;
-  gameError : ErrorData;
+  gameError: ErrorData;
 };
 
 const BoardManager: React.FC<BoardProps> = ({
@@ -48,7 +50,7 @@ const BoardManager: React.FC<BoardProps> = ({
   setTargetSquare,
   markerType,
   setMarkerType,
-  gameError
+  gameError,
 }) => {
   const [game, setGame] = useState<Chess>(new Chess(initialFen));
 
@@ -66,16 +68,11 @@ const BoardManager: React.FC<BoardProps> = ({
         promotion: "q",
       });
 
-      console.log(gameError.evaluation.variation)
       const isBestMove = move.lan === bestMove;
 
       if (move === null || movePlayed) {
         return false;
       }
-
-
-     
-      
 
       setTargetSquare(targetSquare);
       setFeedbackMessage(`${move.san} is ${isBestMove ? "" : "in"} correct`);
@@ -87,27 +84,19 @@ const BoardManager: React.FC<BoardProps> = ({
       setFen(game.fen());
       setMovePlayed(true);
 
-      if (isBestMove) {
-        const variationMoves = gameError.evaluation.variation!.split(" ");
-        const playMoveWithDelay = (index: number) => {
-          
-          if (index < variationMoves.length) {
-            setTimeout(() => {
-              const result = game.move(variationMoves[index]);
-              setFen(game.fen());
-              console.log(game.fen()); // Log the current FEN
-              if (result !== null) {
-                playMoveWithDelay(index + 1);
-              } else {
-                console.error(`Invalid move: ${variationMoves[index]}`);
-              }
-            }, 500); // 1000ms delay between moves, adjust as needed
-          }
-        };
-        
-        playMoveWithDelay(1); // Start playing moves from the second move
-      }
-  
+      const variationMoves = gameError.evaluation.variation!.split(" ");
+
+      setTimeout(() => {
+        if (isBestMove) {
+          playMoveWithDelay(1, setMarkerType, variationMoves, game, setFen);
+        } else {
+          setTimeout(() => {
+            game.load(initialFen);
+            setFen(initialFen);
+            playMoveWithDelay(0, setMarkerType, variationMoves, game, setFen);
+          }, 1000);
+        }
+      });
 
       return true;
     },

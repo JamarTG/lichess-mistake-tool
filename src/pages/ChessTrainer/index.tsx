@@ -70,6 +70,7 @@ const ChessTrainer: React.FC<ChessTrainerProps> = ({ gameErrors }) => {
           setTargetSquare={setTargetSquare}
           markerType={markerType}
           setMarkerType={setMarkerType}
+          gameError={gameError}
         />
         <Button
           text={fen !== STARTINGPOSFEN ? "Skip Puzzle" : "Start Training"}

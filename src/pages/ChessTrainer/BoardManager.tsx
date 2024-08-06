@@ -9,7 +9,7 @@ import React, {
 
 import { Chessboard } from "react-chessboard";
 import { Chess } from "chess.js";
-import { PuzzleResult } from "../../types";
+import { ErrorData, PuzzleResult } from "../../types";
 import getSquareCoordinates from "../../utils/getSqrCoords";
 import { customBoardStyles, boardDimension } from "../../constants";
 
@@ -29,6 +29,7 @@ type BoardProps = {
   setTargetSquare: Dispatch<SetStateAction<string | null>>;
   markerType: "wrong" | "best" | null;
   setMarkerType: Dispatch<SetStateAction<"wrong" | "best" | null>>;
+  gameError : ErrorData;
 };
 
 const BoardManager: React.FC<BoardProps> = ({
@@ -47,6 +48,7 @@ const BoardManager: React.FC<BoardProps> = ({
   setTargetSquare,
   markerType,
   setMarkerType,
+  gameError
 }) => {
   const [game, setGame] = useState<Chess>(new Chess(initialFen));
 
@@ -64,11 +66,16 @@ const BoardManager: React.FC<BoardProps> = ({
         promotion: "q",
       });
 
+      console.log(gameError.evaluation.variation)
       const isBestMove = move.lan === bestMove;
 
       if (move === null || movePlayed) {
         return false;
       }
+
+
+     
+      
 
       setTargetSquare(targetSquare);
       setFeedbackMessage(`${move.san} is ${isBestMove ? "" : "in"} correct`);
@@ -79,6 +86,28 @@ const BoardManager: React.FC<BoardProps> = ({
       setMarkerType(isBestMove ? "best" : "wrong");
       setFen(game.fen());
       setMovePlayed(true);
+
+      if (isBestMove) {
+        const variationMoves = gameError.evaluation.variation!.split(" ");
+        const playMoveWithDelay = (index: number) => {
+          
+          if (index < variationMoves.length) {
+            setTimeout(() => {
+              const result = game.move(variationMoves[index]);
+              setFen(game.fen());
+              console.log(game.fen()); // Log the current FEN
+              if (result !== null) {
+                playMoveWithDelay(index + 1);
+              } else {
+                console.error(`Invalid move: ${variationMoves[index]}`);
+              }
+            }, 500); // 1000ms delay between moves, adjust as needed
+          }
+        };
+        
+        playMoveWithDelay(1); // Start playing moves from the second move
+      }
+  
 
       return true;
     },

@@ -7,10 +7,10 @@ interface PuzzleResultProps {
 
 const ResultDisplay: React.FC<PuzzleResultProps> = ({ puzzleResults }) => {
   return (
-    <DisplayWrapper className="grid grid-cols-12 justify-center  bg-neutral-600 text-white rounded-lg mb-10 p-2">
+    <DisplayWrapper className="p-10 grid grid-cols-10 justify-center  bg-neutral-600 text-white rounded-lg mb-10 p-2">
       {puzzleResults.length
         ? puzzleResults.map((puzzleResult: PuzzleResult) => (
-            <div className="p-1" key={`${puzzleResult.x}-${puzzleResult.y}`}>
+            <div key={`${puzzleResult.x}-${puzzleResult.y}`}>
               <img
                 width={20}
                 src={`/images/${puzzleResult.correct ? "best" : "wrong"}.png`}

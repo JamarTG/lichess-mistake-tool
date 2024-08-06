@@ -41,7 +41,7 @@ const ChessTrainer: React.FC<ChessTrainerProps> = ({ gameErrors }) => {
 
   return (
     <div className="flex flex-row-reverse justify-center items-center gap-10">
-      <div className="flex flex-col justify-center items-center">
+      <div>
         <ResultDisplay puzzleResults={puzzleResults} />
         <InfoDisplay
           fen={fen}

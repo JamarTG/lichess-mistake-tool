@@ -1,18 +1,25 @@
 import { Chess } from "chess.js";
-import { Evaluation } from "../types";
+import { ErrorData, Evaluation } from "../types";
 
-const getErrorData = (
-  gamesMoves: string[][],
-  gamesAnalysis: Evaluation[][]
-) => {
-  // attach move played to the evaluation (bad moves are filtered by discoverGameErrors)
-  return gamesMoves.map((move, index) =>
-    filterGameErrors(move, gamesAnalysis[index])
+const getErrorData = (extraGameInfo: any, gamesAnalysis: Evaluation[][]) => {
+  console.log(
+    "Logging to figure out combination logic",
+    gamesAnalysis,
+    extraGameInfo
+  );
+
+  return extraGameInfo.map((extraInfo: any, index: number) =>
+    filterGameErrors(extraInfo, gamesAnalysis[index])
   );
 };
 
-const filterGameErrors = (moves: string[], evaluation: Evaluation[]) => {
+const filterGameErrors = (
+  extraGameInfo: any,
+  evaluation: Evaluation[]
+): ErrorData[] => {
   const game = new Chess();
+
+  const moves = extraGameInfo.moves.split(" ");
 
   return moves
     .map(function (move: string, index: number) {
@@ -26,6 +33,11 @@ const filterGameErrors = (moves: string[], evaluation: Evaluation[]) => {
       const moveIsBad = evaluation[index]?.judgment;
       return moveIsBad
         ? {
+            game_id: extraGameInfo.game_id,
+            variant: extraGameInfo.variant,
+            perf: extraGameInfo.perf,
+            status: extraGameInfo.status,
+            rated: extraGameInfo.rated,
             move: move,
             evaluation: evaluation[index],
             fen: positionFenBeforeMove,
@@ -33,7 +45,7 @@ const filterGameErrors = (moves: string[], evaluation: Evaluation[]) => {
           }
         : null;
     })
-    .filter((entry) => entry !== null);
+    .filter((entry: any) => entry !== null) as ErrorData[];
 };
 
 export default getErrorData;

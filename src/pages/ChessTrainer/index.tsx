@@ -2,14 +2,12 @@ import { useState } from "react";
 import BoardManager from "./BoardManager";
 import InfoDisplay from "./InfoDisplay";
 import Button from "../../components/Button";
-import {
-  ERRORPNGMAP,
-  STARTINGPOSFEN,
-} from "../../constants";
+import { ERRORPNGMAP, STARTINGPOSFEN } from "../../constants";
 import { ErrorData } from "../../types";
 import { getNextPosition } from "../../utils/getNextPosition";
 import ResultDisplay from "./ResultDisplay";
 import { PuzzleResult as Result } from "../../types";
+import ExtraInfoDisplay from "./ExtraInfoDisplay";
 
 interface ChessTrainerProps {
   gameErrors: ErrorData[][];
@@ -42,6 +40,16 @@ const ChessTrainer: React.FC<ChessTrainerProps> = ({ gameErrors }) => {
   return (
     <div className="flex flex-row-reverse justify-center items-center gap-10">
       <div>
+      
+        {gameError ? (
+          <ExtraInfoDisplay
+            game_id={gameError.game_id}
+            perf={gameError.perf}
+            rated={gameError.rated}
+            status={gameError.status}
+            variant={gameError.variant}
+          />
+        ) : null}
         <ResultDisplay puzzleResults={puzzleResults} />
         <InfoDisplay
           fen={fen}

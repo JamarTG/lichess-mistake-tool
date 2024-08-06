@@ -18,10 +18,9 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({
   gameError,
   imageSrc,
   movePlayed,
-  feedbackMessage,
 }) => {
   return (
-    <DisplayWrapper>
+    <DisplayWrapper className="grid grid-cols-10 gap-5 justify-center items-center bg-neutral-600 text-white rounded-lg mb-10">
       <GameError
         fen={fen}
         imageSrc={imageSrc}
@@ -29,11 +28,7 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({
         gameErrors={gameErrors}
       />
 
-      <ColorToPlay
-        fen={fen}
-        gameError={gameError}
-        movePlayed={movePlayed}
-      />
+      <ColorToPlay fen={fen} gameError={gameError} movePlayed={movePlayed} />
     </DisplayWrapper>
   );
 };

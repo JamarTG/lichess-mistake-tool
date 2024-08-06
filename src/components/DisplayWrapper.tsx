@@ -2,14 +2,15 @@ import { ReactNode } from "react";
 
 interface DisplayWrapperProps {
   children?: ReactNode;
-  isFlex?: boolean;
+  className: string
 }
 
-const DisplayWrapper: React.FC<DisplayWrapperProps> = ({ children }) => {
+const DisplayWrapper: React.FC<DisplayWrapperProps> = ({ className, children }) => {
   return (
     <div
       style={{ height: 210, width: 800 }}
-      className={`grid grid-col-10 gap-5 justify-center items-center bg-neutral-600 text-white rounded-lg mb-10`}
+      
+      className={className}
     >
       {children}
     </div>

@@ -101,7 +101,6 @@ const ChessTrainer = () => {
           setFeedbackMessage={setFeedbackMessage}
           colorToPlay={colorToPlay}
           movePlayed={movePlayed}
-   
           setMovePlayed={setMovePlayed}
           bestMove={bestMove}
           fen={fen}

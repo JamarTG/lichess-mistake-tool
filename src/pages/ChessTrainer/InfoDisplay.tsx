@@ -33,7 +33,6 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({
         fen={fen}
         gameError={gameError}
         movePlayed={movePlayed}
-        feedbackMessage={feedbackMessage}
       />
     </DisplayWrapper>
   );

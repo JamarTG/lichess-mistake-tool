@@ -5,6 +5,7 @@ export const getNextPosition = (
   currentIndex: { x: number; y: number },
   setCurrentIndex: (index: { x: number; y: number }) => void,
   setFen: (fen: string) => void
+  
 ) => {
   if (gameErrors.length === 0) return;
 

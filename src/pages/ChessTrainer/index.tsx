@@ -101,6 +101,7 @@ const ChessTrainer = () => {
           setFeedbackMessage={setFeedbackMessage}
           colorToPlay={colorToPlay}
           movePlayed={movePlayed}
+   
           setMovePlayed={setMovePlayed}
           bestMove={bestMove}
           fen={fen}
@@ -117,6 +118,7 @@ const ChessTrainer = () => {
           text={fen !== STARTINGPOSFEN ? "Skip Puzzle" : "Start Training"}
           onClick={() => {
             setMarkerType(null);
+            setMovePlayed(false)
             getNextPosition(gameErrors, currentIndex, setCurrentIndex, setFen);
           }}
         />

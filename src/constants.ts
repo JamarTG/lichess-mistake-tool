@@ -13,7 +13,7 @@ export const TESTDATA = {
   MAX_GAMES: 10,
   USERNAME: "JamariTheGreat",
   SINCE: new Date("2024-07-03T00:00:00Z").getTime(),
-  UNTIL: new Date("2024-08-03T00:00:00Z").getTime(),
+  UNTIL: new Date("2024-08-08T00:00:00Z").getTime(),
 };
 
 export const API_BASE_URL = "https://lichess.org/api/games/user/";

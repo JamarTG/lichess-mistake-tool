@@ -56,7 +56,6 @@ const BoardManager: React.FC<BoardProps> = ({
 }) => {
   const [game, setGame] = useState<Chess>(new Chess(initialFen));
 
-  // Reset the game state when the fen changes
   useEffect(() => {
     const newGame = new Chess(fen);
     setGame(newGame);
@@ -70,15 +69,13 @@ const BoardManager: React.FC<BoardProps> = ({
         promotion: "q",
       });
 
-      const isBestMove = normalizeCastlingMove(move.lan) === normalizeCastlingMove(bestMove as string);
-
- 
-
-      console.log("move comparison",normalizeCastlingMove(move.lan),normalizeCastlingMove(bestMove as string))
+      const isBestMove =
+        normalizeCastlingMove(move.lan) ===
+        normalizeCastlingMove(bestMove as string);
 
       playGameSound(isBestMove);
 
-      if (move === null || movePlayed) {
+      if (move === null) {
         return false;
       }
 
@@ -92,13 +89,12 @@ const BoardManager: React.FC<BoardProps> = ({
       setFen(game.fen());
       setMovePlayed(true);
 
-      const variationMoves = gameError.evaluation.variation!.split(" ");
-
       setTimeout(() => {
         if (!isBestMove) {
-        
           game.load(initialFen);
           setFen(initialFen);
+          setMarkerType(null);
+          const variationMoves = gameError.evaluation.variation!.split(" ");
           playMoveWithDelay(0, setMarkerType, variationMoves, game, setFen);
         }
       }, 1000);

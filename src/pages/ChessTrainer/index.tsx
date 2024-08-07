@@ -1,11 +1,10 @@
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import BoardManager from "./BoardManager";
 import InfoDisplay from "./InfoDisplay";
 import Button from "../../components/Button";
 import { ERRORPNGMAP, STARTINGPOSFEN } from "../../constants";
 import { ErrorData } from "../../types";
 import { getNextPosition } from "../../utils/getNextPosition";
-import ResultDisplay from "./ResultDisplay";
 import { PuzzleResult as Result } from "../../types";
 import ExtraInfoDisplay from "./ExtraInfoDisplay";
 
@@ -40,7 +39,7 @@ const ChessTrainer: React.FC<ChessTrainerProps> = ({ gameErrors }) => {
   return (
     <div className="flex flex-row-reverse justify-center items-center gap-10">
       <div>
-      
+    
         {gameError ? (
           <ExtraInfoDisplay
             game_id={gameError.game_id}
@@ -50,7 +49,7 @@ const ChessTrainer: React.FC<ChessTrainerProps> = ({ gameErrors }) => {
             variant={gameError.variant}
           />
         ) : null}
-        <ResultDisplay puzzleResults={puzzleResults} />
+
         <InfoDisplay
           fen={fen}
           gameErrors={gameErrors}
@@ -58,6 +57,7 @@ const ChessTrainer: React.FC<ChessTrainerProps> = ({ gameErrors }) => {
           imageSrc={imageSrc}
           movePlayed={movePlayed}
           feedbackMessage={feedbackMessage}
+    
         />
       </div>
 
@@ -79,9 +79,11 @@ const ChessTrainer: React.FC<ChessTrainerProps> = ({ gameErrors }) => {
           markerType={markerType}
           setMarkerType={setMarkerType}
           gameError={gameError}
+        
         />
+       
         <Button
-          text={fen !== STARTINGPOSFEN ? "Skip Puzzle" : "Start Training"}
+          text={fen !== STARTINGPOSFEN ? "Next Puzzle" : "Start Training"}
           onClick={() => {
             setMarkerType(null);
             setMovePlayed(false);

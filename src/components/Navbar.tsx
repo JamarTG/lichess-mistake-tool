@@ -43,26 +43,16 @@ const Navbar = () => {
             className="mb-4 me-5 ms-2 mt-3 flex items-center text-xl text-neutral-900  dark:text-neutral-200 lg:mb-0 lg:mt-0"
             href="#"
           >
-          
-         
             Learn From Your Mistakes 2.0
           </a>
           {/* Left navigation links */}
           <ul className="list-style-none me-auto flex flex-col ps-0 lg:flex-row">
-            {/* <li className="mb-4 lg:mb-0 lg:pe-2">
-              <a
-                className="text-black/60 transition duration-200 hover:text-black/80 dark:text-white/60 dark:hover:text-white/80 lg:px-2"
-                href="#"
-              >
-                Dashboard
-              </a>
-            </li> */}
             <li className="mb-4 lg:mb-0 lg:pe-2">
               <a
                 className="text-black/60 transition duration-200 hover:text-black/80 dark:text-white/60 dark:hover:text-white/80 lg:px-2"
                 href="#"
               >
-                Trainer
+                Set Training Params
               </a>
             </li>
             <li className="mb-4 lg:mb-0 lg:pe-2">
@@ -70,7 +60,15 @@ const Navbar = () => {
                 className="text-black/60 transition duration-200 hover:text-black/80 dark:text-white/60 dark:hover:text-white/80 lg:px-2"
                 href="#"
               >
-                How To Use
+                Mistake Trainer
+              </a>
+            </li>
+            <li className="mb-4 lg:mb-0 lg:pe-2">
+              <a
+                className="text-black/60 transition duration-200 hover:text-black/80 dark:text-white/60 dark:hover:text-white/80 lg:px-2"
+                href="#"
+              >
+                How to Use
               </a>
             </li>
           </ul>

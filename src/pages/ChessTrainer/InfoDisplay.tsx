@@ -3,6 +3,7 @@ import { ErrorData } from "../../types";
 import ColorToPlay from "./ColorToPlay";
 import GameError from "./GameError";
 
+
 interface InfoDisplayProps {
   fen: string;
   gameErrors: ErrorData[][];
@@ -20,15 +21,25 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({
   movePlayed,
 }) => {
   return (
-    <DisplayWrapper>
-      <GameError
-        fen={fen}
-        imageSrc={imageSrc}
-        gameError={gameError}
-        gameErrors={gameErrors}
-      />
+    <DisplayWrapper className="p-10">
+      <div className="flex flex-col justify-center">
+        <GameError
+          fen={fen}
+          imageSrc={imageSrc}
+          gameError={gameError}
+          gameErrors={gameErrors}
+        />
 
-      <ColorToPlay fen={fen} gameError={gameError} movePlayed={movePlayed} />
+        <ColorToPlay fen={fen} gameError={gameError} movePlayed={movePlayed} />
+      </div>
+      <div className="flex flex-col justify-center items-center">
+        <div className="flex gap-10">
+          <button></button><img className="hover:fill-red-300" width={50} src="/svgs/ui/arrow-left.svg" alt="" />
+          <img width={50} src="/svgs/ui/arrow-right.svg" alt="" />
+        </div>
+
+      
+      </div>
     </DisplayWrapper>
   );
 };

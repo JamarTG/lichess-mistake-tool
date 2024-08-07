@@ -1,6 +1,6 @@
 import React from "react";
 import { ErrorData } from "../../types";
-import {  STARTINGPOSFEN } from "../../constants";
+import { STARTINGPOSFEN } from "../../constants";
 
 type ColorToPlayProps = {
   fen: string;
@@ -8,10 +8,7 @@ type ColorToPlayProps = {
   gameError: ErrorData;
 };
 
-const ColorToPlay: React.FC<ColorToPlayProps> = ({
-  fen,
-  gameError,
-}) => {
+const ColorToPlay: React.FC<ColorToPlayProps> = ({ fen, gameError }) => {
   const trainingHasStarted = fen === STARTINGPOSFEN;
 
   return (
@@ -40,11 +37,8 @@ const ColorToPlay: React.FC<ColorToPlayProps> = ({
                   gameError.colorToPlay.substring(1)}{" "}
             </h3>
           </div>
-        ) : (
-          <div>No Puzzles Attempted</div>
-        )}
+        ) : null}
       </div>
-
     </div>
   );
 };

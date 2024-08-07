@@ -90,9 +90,8 @@ const BoardManager: React.FC<BoardProps> = ({
       const variationMoves = gameError.evaluation.variation!.split(" ");
 
       setTimeout(() => {
-        if (isBestMove) {
-          playMoveWithDelay(1, setMarkerType, variationMoves, game, setFen);
-        } else {
+        if (!isBestMove) {
+        
           game.load(initialFen);
           setFen(initialFen);
           playMoveWithDelay(0, setMarkerType, variationMoves, game, setFen);

@@ -7,7 +7,7 @@ interface PuzzleResultProps {
 
 const ResultDisplay: React.FC<PuzzleResultProps> = ({ puzzleResults }) => {
   return (
-    <DisplayWrapper className="p-10 grid grid-cols-10 justify-center  bg-neutral-600 text-white rounded-lg mb-10 p-2">
+    <DisplayWrapper className="p-30 grid grid-cols-10 justify-center  bg-neutral-100 text-white rounded-lg mb-10 p-2">
       {puzzleResults.length
         ? puzzleResults.map((puzzleResult: PuzzleResult) => (
             <div key={`${puzzleResult.x}-${puzzleResult.y}`}>
@@ -18,7 +18,7 @@ const ResultDisplay: React.FC<PuzzleResultProps> = ({ puzzleResults }) => {
               />
             </div>
           ))
-        : "No Puzzles Attempted"}
+        : <div style={{width:"1000%"}} className="flex justify-center items-center">No Puzzles Attempted</div>}
     </DisplayWrapper>
   );
 };

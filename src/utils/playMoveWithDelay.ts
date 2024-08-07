@@ -16,17 +16,17 @@ const playMoveWithDelay = (
       playVariationSound(game, result);
       setFen(game.fen());
 
-      if (result !== null) {
-        playMoveWithDelay(
-          index + 1,
-          setMarkerType,
-          variationMoves,
-          game,
-          setFen
-        );
-      } else {
-        console.error(`Invalid move: ${variationMoves[index]}`);
-      }
+      // if (result !== null) {
+      //   playMoveWithDelay(
+      //     index + 1,
+      //     setMarkerType,
+      //     variationMoves,
+      //     game,
+      //     setFen
+      //   );
+      // } else {
+      //   console.error(`Invalid move: ${variationMoves[index]}`);
+      // }
     }, 800);
   }
 };

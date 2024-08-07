@@ -15,6 +15,7 @@ import { ErrorData, PuzzleResult } from "../../types";
 import getSquareCoordinates from "../../utils/getSqrCoords";
 import { customBoardStyles, boardDimension } from "../../constants";
 import { playGameSound } from "../../utils/playSound";
+import { normalizeCastlingMove } from "../../utils/normalizeCastle";
 
 type BoardProps = {
   initialFen: string;
@@ -69,7 +70,11 @@ const BoardManager: React.FC<BoardProps> = ({
         promotion: "q",
       });
 
-      const isBestMove = move.lan === bestMove;
+      const isBestMove = normalizeCastlingMove(move.lan) === normalizeCastlingMove(bestMove as string);
+
+ 
+
+      console.log("move comparison",normalizeCastlingMove(move.lan),normalizeCastlingMove(bestMove as string))
 
       playGameSound(isBestMove);
 

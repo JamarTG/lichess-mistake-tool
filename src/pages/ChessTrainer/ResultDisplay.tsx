@@ -18,7 +18,7 @@ const ResultDisplay: React.FC<PuzzleResultProps> = ({ puzzleResults }) => {
               />
             </div>
           ))
-        : <div style={{width:"1000%"}} className="flex justify-center items-center">No Puzzles Attempted</div>}
+        : <div style={{width:"1000%"}} className="flex justify-center items-center text-black font-bold">No Puzzles Attempted</div>}
     </DisplayWrapper>
   );
 };

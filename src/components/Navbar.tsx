@@ -6,7 +6,7 @@ const Navbar = () => {
   const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
 
   return (
-    <nav className="mb-10 flex-no-wrap relative flex w-full items-center justify-between bg-zinc-50 py-2 shadow-dark-mild dark:bg-neutral-700 lg:flex-wrap lg:justify-start lg:py-4">
+    <nav className="mb-10 flex-no-wrap relative flex w-full items-center justify-between bg-white-50 py-2 shadow-dark-mild dark:bg-neutral-700 lg:flex-wrap lg:justify-start lg:py-4">
       <div className="flex w-full flex-wrap items-center justify-between px-3">
         <button
           className="block border-0 bg-transparent px-2 text-black/50 hover:no-underline focus:outline-none dark:text-neutral-200 lg:hidden"

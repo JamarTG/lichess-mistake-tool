@@ -21,7 +21,7 @@ type BoardProps = {
   initialFen: string;
   fen: string;
   setFen: Dispatch<SetStateAction<string>>;
-  setFeedbackMessage: Dispatch<SetStateAction<string>>;
+
   bestMove: string | undefined;
   colorToPlay: "white" | "black";
   movePlayed: boolean;
@@ -41,7 +41,6 @@ const BoardManager: React.FC<BoardProps> = ({
   fen,
   setFen,
   bestMove,
-  setFeedbackMessage,
   colorToPlay,
   movePlayed,
   setMovePlayed,
@@ -80,7 +79,7 @@ const BoardManager: React.FC<BoardProps> = ({
       }
 
       setTargetSquare(targetSquare);
-      setFeedbackMessage(`${move.san} is ${isBestMove ? "" : "in"} correct`);
+
       setPuzzlesResult([
         { x: currentIndex.x, y: currentIndex.y, correct: isBestMove },
         ...puzzlesResult,
@@ -109,7 +108,6 @@ const BoardManager: React.FC<BoardProps> = ({
       currentIndex,
       puzzlesResult,
       setFen,
-      setFeedbackMessage,
       setMovePlayed,
       setPuzzlesResult,
       setMarkerType,

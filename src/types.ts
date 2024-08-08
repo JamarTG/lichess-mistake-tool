@@ -22,6 +22,7 @@ export interface ErrorData {
   evaluation: Evaluation;
   fen: string;
   colorToPlay: string;
+  players: Players;
   game_id: string;
   perf: string;
   rated: boolean;
@@ -34,3 +35,12 @@ export interface PuzzleResult {
   y: number;
   correct: boolean;
 }
+type Player = {
+  rating: number;
+  user: string;
+};
+
+export type Players = {
+  white: Player;
+  black: Player;
+};

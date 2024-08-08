@@ -6,7 +6,7 @@ const getErrorData = (extraGameInfo: any, gamesAnalysis: Evaluation[][]) => {
     return filterGameErrors(extraInfo, gamesAnalysis[index]);
   });
 
-  return data
+  return data;
 };
 
 const filterGameErrors = (
@@ -17,36 +17,29 @@ const filterGameErrors = (
 
   const moves = extraGameInfo.moves.split(" ");
 
-
   return moves
     .map(function (move: string, index: number) {
-      
       // capture position and color to play before making move
       const positionFenBeforeMove = game.fen();
       const colorToPlay = game.turn();
 
       game.move(move);
-
       // filter the bad moves (inaccuracies, mistakes and blunders)
       const moveIsBad = evaluation[index]?.judgment;
-      console.log(moveIsBad
-        ? {
-            game_id: extraGameInfo.game_id,
-            players : extraGameInfo.players,
-            variant: extraGameInfo.variant,
-            perf: extraGameInfo.perf,
-            status: extraGameInfo.status,
-            rated: extraGameInfo.rated,
-            move: move,
-            evaluation: evaluation[index],
-            fen: positionFenBeforeMove,
-            colorToPlay: colorToPlay === "w" ? "white" : "black",
-          }
-        : null)
+
       return moveIsBad
         ? {
             game_id: extraGameInfo.game_id,
-            players : extraGameInfo.players,
+            players: {
+              white: {
+                rating: extraGameInfo.players.white.rating,
+                user: extraGameInfo.players.white.user.name,
+              },
+              black: {
+                rating: extraGameInfo.players.black.rating,
+                user: extraGameInfo.players.black.user.name,
+              },
+            },
             variant: extraGameInfo.variant,
             perf: extraGameInfo.perf,
             status: extraGameInfo.status,

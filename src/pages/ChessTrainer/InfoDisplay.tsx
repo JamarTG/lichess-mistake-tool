@@ -1,46 +1,59 @@
-import DisplayWrapper from "./DisplayWr";
+import React from "react";
 import { ErrorData } from "../../types";
-import ColorToPlay from "./ColorToPlay";
-import GameError from "./GameError";
-
 
 interface InfoDisplayProps {
-  fen: string;
-  gameErrors: ErrorData[][];
   gameError: ErrorData;
-  imageSrc: string;
-  movePlayed: boolean;
-  feedbackMessage: string;
 }
 
-const InfoDisplay: React.FC<InfoDisplayProps> = ({
-  fen,
-  gameErrors,
-  gameError,
-  imageSrc,
-  movePlayed,
-}) => {
+const InfoDisplay: React.FC<InfoDisplayProps> = ({ gameError }) => {
+  if (!gameError) {
+    return <div className="bg-white rounded-lg p-5 flex flex-col space-y-5 w-80 h-72">loading....</div>;
+  }
   return (
-    <DisplayWrapper className="p-10">
-      <div className="flex flex-col justify-center">
-        <GameError
-          fen={fen}
-          imageSrc={imageSrc}
-          gameError={gameError}
-          gameErrors={gameErrors}
-        />
-
-        <ColorToPlay fen={fen} gameError={gameError} movePlayed={movePlayed} />
+    <div className="bg-white rounded-lg p-5 flex flex-col space-y-5 w-80 h-72">
+      <div className="rounded-lg ">
+        <p>
+          <a
+            href={`https://lichess.org/${gameError.game_id}`}
+            target="_blank"
+            className="text-red-600"
+            rel="noopener noreferrer"
+          >
+            {gameError.game_id}
+          </a>
+        </p>
+        <p className="inline-block text-center bg-blue-100 text-blue-800 text-xs my-1 font-medium px-3 py-1 rounded-lg  dark:text-blue-400 border border-blue-400">
+          {gameError.variant} • {gameError.rated ? "rated" : "casual"} •{" "}
+          {gameError.perf}
+        </p>
+        <p>
+          {gameError.players.white.user.toLocaleLowerCase()} (
+          {gameError.players.white.rating}) vs{" "}
+          {gameError.players.black.user.toLocaleLowerCase()} (
+          {gameError.players.black.rating})
+        </p>
       </div>
-      <div className="flex flex-col justify-center items-center">
-        <div className="flex gap-10">
-          <button></button><img className="hover:fill-red-300" width={50} src="/svgs/ui/arrow-left.svg" alt="" />
-          <img width={50} src="/svgs/ui/arrow-right.svg" alt="" />
-        </div>
 
+      <div className="flex flex-col justify-between gap-4 ">
       
+
+        <div className="flex items-center">
+          <p className="flex gap-3 justify-center items-center">
+            <img
+              src={`/svgs/pieces/${
+                gameError.colorToPlay === "white" ? "wK" : "bK"
+              }.svg`}
+              width={80}
+              alt=""
+            />{" "}
+            <div className="flex flex-col">
+              <p className="text-xl">{gameError.move}?? was played</p>
+              <p>Find the best move</p>
+            </div>
+          </p>
+        </div>
       </div>
-    </DisplayWrapper>
+    </div>
   );
 };
 

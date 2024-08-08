@@ -22,9 +22,10 @@ const Main = () => {
 
     const start = new Date(startDate);
     const end = new Date(endDate);
+    end.setHours(23, 59, 59, 999);
 
     if (username && maxNoGames > 0 && startDate && endDate) {
-      if (start < end) {
+      if (start <= end) {
         setFormSubmitted(true);
 
         try {
@@ -36,13 +37,15 @@ const Main = () => {
             },
           });
 
+        
+
           if (!response.ok) {
             console.error(`Error ${response.status}: ${response.statusText}`);
             return;
           }
 
           const gamesErrorData = await splitNDJSON(response);
-          console.log(gamesErrorData, "sdfs");
+          
 
           if (gamesErrorData) {
             setGameErrors(
@@ -59,7 +62,8 @@ const Main = () => {
         alert("Start date must be before end date.");
       }
     } else {
-      alert("Please fill in all fields correctly.");
+      alert("Please fill in all fields correctly." + (startDate && endDate).toString());
+      
     }
   };
 
@@ -83,6 +87,8 @@ const Main = () => {
           handleSubmit={handleSubmit}
         />
       )}
+
+     
     </div>
   );
 };

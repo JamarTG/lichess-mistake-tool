@@ -41,7 +41,7 @@ const ExtraInfoDisplay: React.FC<ExtraInfoDisplayProps> = ({
             </td>
             <td className="px-2 py-1 text-center">
               <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
-                {variant}
+                {variant} ● {perf}
               </span>
             </td>
             <td className="px-2 py-1 text-center flex justify-center items-center">

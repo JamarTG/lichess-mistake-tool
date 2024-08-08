@@ -19,7 +19,10 @@ export const splitNDJSON = async (response: Response) => {
  
   const extraGameInfo = lines.map((line) => {
     const parsedLine = JSON.parse(line);
+    
+   
     return {
+      players: parsedLine.players,
       moves: parsedLine.moves,
       game_id: parsedLine.id,
       perf: parsedLine.perf,

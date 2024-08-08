@@ -7,6 +7,8 @@ export const getNextPosition = (
   setFen: (fen: string) => void
   
 ) => {
+
+
   if (gameErrors.length === 0) return;
 
   if (currentIndex.y + 1 < gameErrors[currentIndex.x]?.length) {

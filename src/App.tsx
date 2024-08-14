@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import ChessTrainer from "./pages/ChessTrainer";
 import Navbar from "./components/Navbar";
 import About from "./pages/About";
 import "./App.css";

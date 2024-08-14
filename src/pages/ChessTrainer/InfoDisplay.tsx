@@ -6,9 +6,6 @@ interface InfoDisplayProps {
 }
 
 const InfoDisplay: React.FC<InfoDisplayProps> = ({ gameError }) => {
-  if (!gameError) {
-    return <div className="bg-white rounded-lg p-5 flex flex-col space-y-5 w-80 h-72">loading....</div>;
-  }
   return (
     <div className="bg-white rounded-lg p-5 flex flex-col space-y-5 w-80 h-72">
       <div className="rounded-lg ">

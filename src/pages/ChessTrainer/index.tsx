@@ -1,7 +1,7 @@
 import { useState } from "react";
 import BoardManager from "./BoardManager";
 import InfoDisplay from "./InfoDisplay";
-import { ERRORPNGMAP, STARTINGPOSFEN } from "../../constants";
+import { STARTINGPOSFEN } from "../../constants";
 import { ErrorData } from "../../types";
 import { getNextPosition } from "../../utils/getNextPosition";
 import { PuzzleResult as Result } from "../../types";
@@ -11,6 +11,7 @@ interface ChessTrainerProps {
 }
 
 const ChessTrainer: React.FC<ChessTrainerProps> = ({ gameErrors }) => {
+
   const [fen, setFen] = useState(STARTINGPOSFEN);
   const [movePlayed, setMovePlayed] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<{ x: number; y: number }>({
@@ -22,8 +23,6 @@ const ChessTrainer: React.FC<ChessTrainerProps> = ({ gameErrors }) => {
   const [markerType, setMarkerType] = useState<"best" | "wrong" | null>(null);
 
   const gameError = gameErrors[currentIndex.x]?.[currentIndex.y];
-  const judgmentName = gameError?.evaluation.judgment?.name;
-  const imageSrc = ERRORPNGMAP[judgmentName] || "/mistake.png";
   const colorToPlay =
     gameErrors[currentIndex.x] &&
     (gameErrors[currentIndex.x][currentIndex.y].colorToPlay as
@@ -35,8 +34,12 @@ const ChessTrainer: React.FC<ChessTrainerProps> = ({ gameErrors }) => {
 
   return (
     <div className="flex flex-row-reverse justify-center items-center gap-10">
+
       <div className="bg-gray-200 rounded-lg flex flex-col justify-center items-center">
-        <InfoDisplay gameError={gameError} />
+        {
+          gameError ? <InfoDisplay gameError={gameError} /> : "no results"
+        }
+        
       </div>
 
       <div>
@@ -72,9 +75,9 @@ const ChessTrainer: React.FC<ChessTrainerProps> = ({ gameErrors }) => {
           <svg
             fill="none"
             stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
             viewBox="0 0 24 24"
             className="w-6 h-6 ml-2"
           >

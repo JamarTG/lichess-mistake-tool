@@ -16,6 +16,7 @@ const Main = () => {
   const [endDate, setEndDate] = useState<string>(formatDate(new Date()));
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const [gameErrors, setGameErrors] = useState<ErrorData[][]>([]);
+  const [isLoading , setIsLoading] = useState<boolean>(true);
 
   const handleSubmit = async (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault();

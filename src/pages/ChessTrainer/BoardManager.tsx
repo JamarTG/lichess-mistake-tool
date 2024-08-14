@@ -54,6 +54,7 @@ const BoardManager: React.FC<BoardProps> = ({
   gameError,
 }) => {
   const [game, setGame] = useState<Chess>(new Chess(initialFen));
+  
 
   useEffect(() => {
     const newGame = new Chess(fen);
@@ -93,8 +94,8 @@ const BoardManager: React.FC<BoardProps> = ({
           game.load(initialFen);
           setFen(initialFen);
           setMarkerType(null);
-          const variationMoves = gameError.evaluation.variation!.split(" ");
-          playMoveWithDelay(0, setMarkerType, variationMoves, game, setFen);
+          // const variationMoves = gameError.evaluation.variation!.split(" ");
+          // playMoveWithDelay(0, setMarkerType, variationMoves, game, setFen);
         }
       }, 1000);
 

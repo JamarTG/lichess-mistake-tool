@@ -11,7 +11,6 @@ interface ChessTrainerProps {
 
 const ChessTrainer: React.FC<ChessTrainerProps> = ({ gameErrors }) => {
   const [fen, setFen] = useState(STARTINGPOSFEN);
-  const [movePlayed, setMovePlayed] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<{ x: number; y: number }>({
     x: 0,
     y: 0,
@@ -50,7 +49,6 @@ const ChessTrainer: React.FC<ChessTrainerProps> = ({ gameErrors }) => {
         className="bg-blue-500 text-white font-bold py-4 px-8 rounded-full flex items-center justify-center cursor-pointer hover:bg-blue-600 transition duration-300"
         onClick={() => {
           setMarkerType(null);
-          setMovePlayed(false);
           getNextPosition(gameErrors, currentIndex, setCurrentIndex, setFen);
         }}
       >

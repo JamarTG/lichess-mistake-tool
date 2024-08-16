@@ -1,13 +1,21 @@
 import React from "react";
 import { ErrorData } from "../../types";
+import { STARTINGPOSFEN } from "../../constants";
 
 interface InfoDisplayProps {
   gameError: ErrorData;
+  fen : string;
 }
 
-const InfoDisplay: React.FC<InfoDisplayProps> = ({ gameError }) => {
+const InfoDisplay: React.FC<InfoDisplayProps> = ({ gameError , fen }) => {
+  const containerStyles = 'bg-white rounded-lg p-5 flex flex-col space-y-5 w-80 h-72';
+  
+  if(fen == STARTINGPOSFEN) {
+    return <div className={containerStyles}></div>
+  }
+  
   return (
-    <div className="bg-white rounded-lg p-5 flex flex-col space-y-5 w-80 h-72">
+    <div className={containerStyles}>
       <div className="rounded-lg ">
         <p>
           <a

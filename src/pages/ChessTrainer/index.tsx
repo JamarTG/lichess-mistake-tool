@@ -31,26 +31,22 @@ const ChessTrainer: React.FC<ChessTrainerProps> = ({ gameErrors }) => {
 
   return (
     <div className="flex flex-row-reverse justify-center items-center gap-10">
-      <div className="bg-gray-200 rounded-lg flex flex-col justify-center items-center">
-        {gameError ? <InfoDisplay gameError={gameError} /> : "no games meet these criteria"}
-      </div>
+      <InfoDisplay gameError={gameError} fen={fen} />
 
-      <div>
-        <BoardManager
-          initialFen={fen}
-          colorToPlay={colorToPlay}
-          movePlayed={movePlayed}
-          setMovePlayed={setMovePlayed}
-          bestMove={bestMove}
-          fen={fen}
-          setFen={setFen}
-          currentIndex={currentIndex}
-          targetSquare={targetSquare}
-          setTargetSquare={setTargetSquare}
-          markerType={markerType}
-          setMarkerType={setMarkerType}
-        />
-      </div>
+      <BoardManager
+        initialFen={fen}
+        colorToPlay={colorToPlay}
+        movePlayed={movePlayed}
+        setMovePlayed={setMovePlayed}
+        bestMove={bestMove}
+        fen={fen}
+        setFen={setFen}
+        currentIndex={currentIndex}
+        targetSquare={targetSquare}
+        setTargetSquare={setTargetSquare}
+        markerType={markerType}
+        setMarkerType={setMarkerType}
+      />
 
       <p
         className="bg-blue-500 text-white font-bold py-4 px-8 rounded-full flex items-center justify-center cursor-pointer hover:bg-blue-600 transition duration-300"

@@ -1,5 +1,5 @@
 import { FormEvent, useState } from "react";
-import formatDate from "../../utils/formatDate";
+import { INITIAL_FORM_STATE } from "../../constants";
 import ChessTrainer from "../ChessTrainer";
 import ParamsForm from "./ParamsForm";
 import { ErrorData } from "../../types";
@@ -8,94 +8,74 @@ import { splitNDJSON } from "../../utils/splitNDJSON";
 import getErrorData from "../../utils/getErrorData";
 
 const Main = () => {
-  const [username, setUsername] = useState<string>("");
-  const [maxNoGames, setMaxNoGames] = useState<number>(10);
-  const [startDate, setStartDate] = useState<string>(
-    formatDate(new Date(Date.now() - 7 * 24 * 60 * 60 * 1000))
-  );
-  const [endDate, setEndDate] = useState<string>(formatDate(new Date()));
+  const [formData, setFormData] = useState(INITIAL_FORM_STATE);
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const [gameErrors, setGameErrors] = useState<ErrorData[][]>([]);
-
 
   const handleSubmit = async (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
+    const { username, maxNoGames, startDate, endDate } = formData;
     const start = new Date(startDate);
     const end = new Date(endDate);
     end.setHours(23, 59, 59, 999);
 
-    if (username && maxNoGames > 0 && startDate && endDate) {
-      if (start <= end) {
-        setFormSubmitted(true);
+    if (!(username && maxNoGames > 0 && startDate && endDate)) {
+      alert("Please fill in all fields correctly");
+      return;
+    }
 
-        try {
-          const url = `${API_BASE_URL}${username}?since=${start.getTime()}&until=${end.getTime()}&max=${maxNoGames}&evals=true&analysed=true`;
+    if (start > end) {
+      alert("Start date must be before end date.");
+      return;
+    }
 
-          const response = await fetch(url, {
-            headers: {
-              Accept: "application/x-ndjson",
-            },
-          });
+    setFormSubmitted(true);
+    try {
+      const url = `${API_BASE_URL}${username}?since=${start.getTime()}&until=${end.getTime()}&max=${maxNoGames}&evals=true&analysed=true`;
+      const response = await fetch(url, {
+        headers: {
+          Accept: "application/x-ndjson",
+        },
+      });
 
-        
-
-          if (!response.ok) {
-            console.error(`Error ${response.status}: ${response.statusText}`);
-            return;
-          }
-
-        
-
-          const gamesErrorData = await splitNDJSON(response);
-
-          
-
-          if (gamesErrorData) {
-           
-            setGameErrors(
-              getErrorData(
-                gamesErrorData.extraGameInfo,
-                gamesErrorData.gamesAnalysis
-              )
-            );
-          } else {
-            throw new Error("Unable to Retrieve Games")
-          }
-        } catch (error) {
-          console.error("Error fetching games:", error);
-        }
-      } else {
-        alert("Start date must be before end date.");
+      if (!response.ok) {
+        console.error(`Error ${response.status}: ${response.statusText}`);
+        return;
       }
-    } else {
-      alert("Please fill in all fields correctly." + (startDate && endDate).toString());
-      
+
+      const gamesErrorData = await splitNDJSON(response);
+
+      if (!gamesErrorData) {
+        alert("Unable to Retrieve Games");
+        return;
+      }
+
+      setGameErrors(
+        getErrorData(gamesErrorData.extraGameInfo, gamesErrorData.gamesAnalysis)
+      );
+    } catch (error) {
+      console.error("Error fetching games:", error);
     }
   };
 
   return (
     <div>
-     
-      {username && maxNoGames && startDate && endDate && formSubmitted ? (
+      {formData.username &&
+      formData.maxNoGames &&
+      formData.startDate &&
+      formData.endDate &&
+      formSubmitted ? (
         <div>
           <ChessTrainer gameErrors={gameErrors} />
         </div>
       ) : (
         <ParamsForm
-          username={username}
-          setUsername={setUsername}
-          maxNoGames={maxNoGames}
-          setMaxNoGames={setMaxNoGames}
-          startDate={startDate}
-          setStartDate={setStartDate}
-          endDate={endDate}
-          setEndDate={setEndDate}
+          formData={formData}
+          setFormData={setFormData}
           handleSubmit={handleSubmit}
         />
       )}
-
-     
     </div>
   );
 };

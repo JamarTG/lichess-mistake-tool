@@ -36,7 +36,15 @@ interface Player {
   user: string;
 }
 
-export type Players = {
+export interface Players{
   white: Player;
   black: Player;
 };
+
+export interface FormData {
+  username: string;
+  maxNoGames: number;
+  startDate: string;
+  endDate: string;
+}
+

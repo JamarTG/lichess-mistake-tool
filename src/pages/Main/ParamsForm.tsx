@@ -1,46 +1,42 @@
-import { ChangeEvent, Dispatch, FormEvent, SetStateAction} from "react";
+import { ChangeEvent, Dispatch, FormEvent, SetStateAction } from "react";
+import { FormData } from "../../types";
 
 interface ParamsFormProps {
-  username: string;
-  setUsername: Dispatch<SetStateAction<string>>;
-  maxNoGames: number;
-  setMaxNoGames: Dispatch<SetStateAction<number>>;
-  startDate: string;
-  setStartDate: Dispatch<SetStateAction<string>>;
-  endDate: string;
-  setEndDate: Dispatch<SetStateAction<string>>;
-  handleSubmit: (event: FormEvent<HTMLButtonElement>) => void
+  formData: FormData;
+  setFormData: Dispatch<SetStateAction<FormData>>;
+  handleSubmit: (event: FormEvent<HTMLButtonElement>) => void;
 }
 
 const ParamsForm: React.FC<ParamsFormProps> = ({
-  username,
-  setUsername,
-  maxNoGames,
-  setMaxNoGames,
-  startDate,
-  setStartDate,
-  endDate,
-  setEndDate,
-  handleSubmit
+  formData,
+  setFormData,
+  handleSubmit,
 }) => {
-
-  const handleNameChange  = (e:ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value)
-  }
+  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      username: e.target.value,
+    }));
+  };
   const handleDateChange = (
-    setDate: Dispatch<SetStateAction<string>>,
+    dateType: "start" | "end",
     event: ChangeEvent<HTMLInputElement>
   ) => {
     const date = event.target.value;
-    setDate(date);
+    if (dateType === "start") {
+      setFormData((prevFormData) => ({ ...prevFormData, startDate: date }));
+    } else {
+      setFormData((prevFormData) => ({ ...prevFormData, endDate: date }));
+    }
   };
 
-  const handleMaxGamesChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setMaxNoGames(Number(event.target.value));
+  const handleMaxGamesChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      maxNoGames: parseInt(e.target.value),
+    }));
   };
 
- 
-  
   return (
     <form className="max-w-md mx-auto">
       <h2 style={{ fontSize: 21 }} className="font-bold text-xl text-black ">
@@ -54,8 +50,8 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
           id="floating_username"
           className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-neutral-600 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
           placeholder=""
-          value={username}
-          onChange={e => handleNameChange(e)}
+          value={formData.username}
+          onChange={(e) => handleNameChange(e)}
           required
         />
         <label
@@ -74,9 +70,9 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
             id="floating_start_date"
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-neutral-600 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
-            value={startDate}
+            value={formData.startDate}
             onChange={(e) => {
-              handleDateChange(setStartDate, e);
+              handleDateChange("start", e);
             }}
             required
           />
@@ -95,9 +91,9 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-neutral-600 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
             required
-            value={endDate}
+            value={formData.endDate}
             onChange={(e) => {
-              handleDateChange(setEndDate, e);
+              handleDateChange("end", e);
             }}
           />
           <label
@@ -115,7 +111,7 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
           id="floating_max_games"
           className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-neutral-600 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
           placeholder=" "
-          value={maxNoGames}
+          value={formData.maxNoGames}
           onChange={(e) => handleMaxGamesChange(e)}
           required
         />
@@ -128,8 +124,7 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
       </div>
 
       <button
-       
-     onClick={(e) => handleSubmit(e)}
+        onClick={(e) => handleSubmit(e)}
         className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       >
         Proceed To Trainer

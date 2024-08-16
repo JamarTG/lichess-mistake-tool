@@ -4,7 +4,6 @@ import { STARTINGPOSFEN } from "../../constants";
 
 type ColorToPlayProps = {
   fen: string;
-  movePlayed: boolean;
   gameError: ErrorData;
 };
 

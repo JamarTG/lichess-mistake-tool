@@ -22,8 +22,6 @@ type BoardProps = {
 
   bestMove: string | undefined;
   colorToPlay: "white" | "black";
-  movePlayed: boolean;
-  setMovePlayed: Dispatch<SetStateAction<boolean>>;
   currentIndex: { x: number; y: number };
   targetSquare: string | null;
   setTargetSquare: Dispatch<SetStateAction<string | null>>;
@@ -37,8 +35,6 @@ const BoardManager: React.FC<BoardProps> = ({
   setFen,
   bestMove,
   colorToPlay,
-  movePlayed,
-  setMovePlayed,
   currentIndex,
   targetSquare,
   setTargetSquare,
@@ -70,10 +66,8 @@ const BoardManager: React.FC<BoardProps> = ({
       game,
       initialFen,
       bestMove,
-      movePlayed,
       currentIndex,
       setFen,
-      setMovePlayed,
       setMarkerType,
       setTargetSquare,
     ]
@@ -98,7 +92,6 @@ const BoardManager: React.FC<BoardProps> = ({
     setTargetSquare(targetSquare);
     setMarkerType(isBestMove ? "best" : "wrong");
     setFen(game.fen());
-    setMovePlayed(true);
   };
 
   const resetBoardAfterDelay = () => {
@@ -120,7 +113,7 @@ const BoardManager: React.FC<BoardProps> = ({
     bestMoveMarker,
     bestMoveStyle,
     markerType,
-    movePlayed
+    !!markerType
   );
 
   return (

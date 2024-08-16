@@ -15,7 +15,8 @@ export interface ErrorDataWithMoves {
   rated: any;
   status: any;
   variant: any;
-}[];
+}
+[];
 
 export interface ErrorData {
   move: string;
@@ -30,15 +31,10 @@ export interface ErrorData {
   variant: string;
 }
 
-export interface PuzzleResult {
-  x: number;
-  y: number;
-  correct: boolean;
-}
-type Player = {
+interface Player {
   rating: number;
   user: string;
-};
+}
 
 export type Players = {
   white: Player;

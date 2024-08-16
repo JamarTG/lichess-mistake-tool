@@ -7,11 +7,8 @@ import React, {
   CSSProperties,
 } from "react";
 
-import playMoveWithDelay from "../../utils/playMoveWithDelay";
-
 import { Chessboard } from "react-chessboard";
 import { Chess } from "chess.js";
-import { ErrorData, PuzzleResult } from "../../types";
 import getSquareCoordinates from "../../utils/getSqrCoords";
 import { customBoardStyles, boardDimension } from "../../constants";
 import { playGameSound } from "../../utils/playSound";
@@ -26,14 +23,11 @@ type BoardProps = {
   colorToPlay: "white" | "black";
   movePlayed: boolean;
   setMovePlayed: Dispatch<SetStateAction<boolean>>;
-  puzzlesResult: PuzzleResult[];
-  setPuzzlesResult: Dispatch<SetStateAction<PuzzleResult[]>>;
   currentIndex: { x: number; y: number };
   targetSquare: string | null;
   setTargetSquare: Dispatch<SetStateAction<string | null>>;
   markerType: "wrong" | "best" | null;
   setMarkerType: Dispatch<SetStateAction<"wrong" | "best" | null>>;
-  gameError: ErrorData;
 };
 
 const BoardManager: React.FC<BoardProps> = ({
@@ -44,14 +38,11 @@ const BoardManager: React.FC<BoardProps> = ({
   colorToPlay,
   movePlayed,
   setMovePlayed,
-  puzzlesResult,
-  setPuzzlesResult,
   currentIndex,
   targetSquare,
   setTargetSquare,
   markerType,
   setMarkerType,
-  gameError,
 }) => {
   const [game, setGame] = useState<Chess>(new Chess(initialFen));
   
@@ -80,11 +71,6 @@ const BoardManager: React.FC<BoardProps> = ({
       }
 
       setTargetSquare(targetSquare);
-
-      setPuzzlesResult([
-        { x: currentIndex.x, y: currentIndex.y, correct: isBestMove },
-        ...puzzlesResult,
-      ]);
       setMarkerType(isBestMove ? "best" : "wrong");
       setFen(game.fen());
       setMovePlayed(true);
@@ -107,10 +93,8 @@ const BoardManager: React.FC<BoardProps> = ({
       bestMove,
       movePlayed,
       currentIndex,
-      puzzlesResult,
       setFen,
       setMovePlayed,
-      setPuzzlesResult,
       setMarkerType,
       setTargetSquare,
     ]

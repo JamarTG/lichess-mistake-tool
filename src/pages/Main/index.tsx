@@ -45,16 +45,23 @@ const Main = () => {
             return;
           }
 
+        
+
           const gamesErrorData = await splitNDJSON(response);
+
           
 
           if (gamesErrorData) {
+            const zerrorData = getErrorData(
+              gamesErrorData.extraGameInfo,
+              gamesErrorData.gamesAnalysis
+            )
+            console.log("dnash",zerrorData)
             setGameErrors(
-              getErrorData(
-                gamesErrorData.extraGameInfo,
-                gamesErrorData.gamesAnalysis
-              )
+              zerrorData
             );
+          } else {
+            throw new Error("asdsad")
           }
         } catch (error) {
           console.error("Error fetching games:", error);

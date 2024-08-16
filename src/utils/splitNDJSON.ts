@@ -12,6 +12,8 @@ export const splitNDJSON = async (response: Response) => {
     result += gameInfo;
   }
 
+  console.log(result)
+
   // Split NDJSON data into individual JSON objects
   const lines = result.split("\n").filter((line) => line.trim() !== "");
 

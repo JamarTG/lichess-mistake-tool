@@ -3,8 +3,11 @@ import { ErrorData, Evaluation } from "../types";
 
 const getErrorData = (extraGameInfo: any, gamesAnalysis: Evaluation[][]) => {
   const data = extraGameInfo.map((extraInfo: any, index: number) => {
-    return filterGameErrors(extraInfo, gamesAnalysis[index]);
-  });
+  
+    return extraInfo.variant === "standard"
+      ? filterGameErrors(extraInfo, gamesAnalysis[index])
+      : null
+  }).filter((entry: any) => entry !== null);
 
   return data;
 };

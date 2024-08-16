@@ -32,7 +32,7 @@ const ChessTrainer: React.FC<ChessTrainerProps> = ({ gameErrors }) => {
   return (
     <div className="flex flex-row-reverse justify-center items-center gap-10">
       <div className="bg-gray-200 rounded-lg flex flex-col justify-center items-center">
-        {gameError ? <InfoDisplay gameError={gameError} /> : "no results"}
+        {gameError ? <InfoDisplay gameError={gameError} /> : "no games meet these criteria"}
       </div>
 
       <div>

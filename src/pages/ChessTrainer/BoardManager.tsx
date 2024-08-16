@@ -13,6 +13,7 @@ import getSquareCoordinates from "../../utils/getSqrCoords";
 import { customBoardStyles, boardDimension } from "../../constants";
 import { playGameSound } from "../../utils/playSound";
 import { normalizeCastlingMove } from "../../utils/normalizeCastle";
+import getMarkerStyles from "../../utils/getMarkerStyles";
 
 type BoardProps = {
   initialFen: string;
@@ -45,7 +46,6 @@ const BoardManager: React.FC<BoardProps> = ({
   setMarkerType,
 }) => {
   const [game, setGame] = useState<Chess>(new Chess(initialFen));
-  
 
   useEffect(() => {
     const newGame = new Chess(fen);
@@ -54,36 +54,15 @@ const BoardManager: React.FC<BoardProps> = ({
 
   const handlePieceDrop = useCallback(
     (sourceSquare: string, targetSquare: string) => {
-      const move = game.move({
-        from: sourceSquare,
-        to: targetSquare,
-        promotion: "q",
-      });
+      const move = attemptMove(sourceSquare, targetSquare);
 
-      const isBestMove =
-        normalizeCastlingMove(move.lan) ===
-        normalizeCastlingMove(bestMove as string);
+      if (!move) return false;
+
+      const isBestMove = checkBestMove(move);
 
       playGameSound(isBestMove);
-
-      if (move === null) {
-        return false;
-      }
-
-      setTargetSquare(targetSquare);
-      setMarkerType(isBestMove ? "best" : "wrong");
-      setFen(game.fen());
-      setMovePlayed(true);
-
-      setTimeout(() => {
-        if (!isBestMove) {
-          game.load(initialFen);
-          setFen(initialFen);
-          setMarkerType(null);
-          // const variationMoves = gameError.evaluation.variation!.split(" ");
-          // playMoveWithDelay(0, setMarkerType, variationMoves, game, setFen);
-        }
-      }, 1000);
+      updateGameState(targetSquare, isBestMove);
+      isBestMove ? null : resetBoardAfterDelay();
 
       return true;
     },
@@ -100,27 +79,49 @@ const BoardManager: React.FC<BoardProps> = ({
     ]
   );
 
+  const attemptMove = (sourceSquare: string, targetSquare: string) => {
+    return game.move({
+      from: sourceSquare,
+      to: targetSquare,
+      promotion: "q",
+    });
+  };
+
+  const checkBestMove = (move: any) => {
+    return (
+      normalizeCastlingMove(move.lan) ===
+      normalizeCastlingMove(bestMove as string)
+    );
+  };
+
+  const updateGameState = (targetSquare: string, isBestMove: boolean) => {
+    setTargetSquare(targetSquare);
+    setMarkerType(isBestMove ? "best" : "wrong");
+    setFen(game.fen());
+    setMovePlayed(true);
+  };
+
+  const resetBoardAfterDelay = () => {
+    setTimeout(() => {
+      game.load(initialFen);
+      setFen(initialFen);
+      setMarkerType(null);
+      // const variationMoves = gameError.evaluation.variation!.split(" ");
+      // playMoveWithDelay(0, setMarkerType, variationMoves, game, setFen);
+    }, 1000);
+  };
+
   const bestMoveMarker = targetSquare ? targetSquare : null;
   const bestMoveStyle = bestMoveMarker
     ? getSquareCoordinates(bestMoveMarker, boardDimension.WIDTH, colorToPlay)
     : { top: 0, left: 0, size: 0 };
 
-  const markerStyle = bestMoveMarker
-    ? {
-        position: "absolute" as const,
-        top: bestMoveStyle.top,
-        left: bestMoveStyle.left,
-        width: bestMoveStyle.size,
-        height: bestMoveStyle.size,
-        backgroundImage: `url("/images/${markerType}.png")`,
-        backgroundSize: "50%",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "top right",
-        pointerEvents: "none",
-        zIndex: 4000,
-        display: movePlayed ? "block" : "none",
-      }
-    : {};
+  const markerStyle = getMarkerStyles(
+    bestMoveMarker,
+    bestMoveStyle,
+    markerType,
+    movePlayed
+  );
 
   return (
     <div className="flex flex-row gap-5 justify-center items-center">

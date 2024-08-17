@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar";
 import About from "./pages/About";
 import "./App.css";
 import Main from "./pages/Main/index.tsx";
@@ -7,8 +7,9 @@ import Main from "./pages/Main/index.tsx";
 const App = () => {
   return (
     <Router>
+      <Navbar />
       <div className="h-full flex flex-col p-6">
-        {/* <Navbar /> */}
+        
         <div className="flex-grow flex justify-center items-center">
           <Routes>
             <Route path="/" element={<Main />} />

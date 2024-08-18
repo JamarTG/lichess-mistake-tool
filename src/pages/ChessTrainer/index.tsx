@@ -34,6 +34,7 @@ const ChessTrainer: React.FC<ChessTrainerProps> = ({ gameErrors }) => {
 
       <BoardManager
         initialFen={fen}
+        gameError={gameError}
         colorToPlay={colorToPlay}
         bestMove={bestMove}
         fen={fen}

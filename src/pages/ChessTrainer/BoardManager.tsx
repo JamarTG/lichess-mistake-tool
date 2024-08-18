@@ -14,6 +14,9 @@ import { customBoardStyles, boardDimension } from "../../constants";
 import { playGameSound } from "../../utils/playSound";
 import { normalizeCastlingMove } from "../../utils/normalizeCastle";
 import getMarkerStyles from "../../utils/getMarkerStyles";
+import { ErrorData } from "../../types";
+import { getNextPosition } from "../../utils/getNextPosition";
+import { Arrow } from "react-chessboard/dist/chessboard/types";
 
 type BoardProps = {
   initialFen: string;
@@ -27,6 +30,7 @@ type BoardProps = {
   setTargetSquare: Dispatch<SetStateAction<string | null>>;
   markerType: "wrong" | "best" | null;
   setMarkerType: Dispatch<SetStateAction<"wrong" | "best" | null>>;
+  gameError: ErrorData;
 };
 
 const BoardManager: React.FC<BoardProps> = ({
@@ -40,8 +44,10 @@ const BoardManager: React.FC<BoardProps> = ({
   setTargetSquare,
   markerType,
   setMarkerType,
+  gameError,
 }) => {
   const [game, setGame] = useState<Chess>(new Chess(initialFen));
+  const [moveInSan, setMoveInSan] = useState<string | null | undefined>(null);
 
   useEffect(() => {
     const newGame = new Chess(fen);
@@ -116,6 +122,16 @@ const BoardManager: React.FC<BoardProps> = ({
     !!markerType
   );
 
+  const convertMove = (moveNotation: string | undefined | null) => {
+    if (null) {
+      return;
+    }
+
+    const moves = game.moves({ verbose: true });
+    const move = moves.find((m) => m.san === moveNotation);
+    return [move?.from, move?.to, move?.from && move.to ? "red" : ""];
+  };
+
   return (
     <div className="flex flex-row gap-5 justify-center items-center">
       <div
@@ -130,6 +146,7 @@ const BoardManager: React.FC<BoardProps> = ({
           onPieceDrop={handlePieceDrop}
           boardWidth={boardDimension.WIDTH}
           boardOrientation={colorToPlay}
+          customArrows={[convertMove(gameError?.move) as Arrow]}
         />
 
         {bestMoveMarker && <div style={markerStyle as CSSProperties} />}

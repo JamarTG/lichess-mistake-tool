@@ -15,7 +15,6 @@ import { playGameSound } from "../../utils/playSound";
 import { normalizeCastlingMove } from "../../utils/normalizeCastle";
 import getMarkerStyles from "../../utils/getMarkerStyles";
 import { ErrorData } from "../../types";
-import { getNextPosition } from "../../utils/getNextPosition";
 import { Arrow } from "react-chessboard/dist/chessboard/types";
 
 type BoardProps = {

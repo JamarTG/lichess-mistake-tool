@@ -19,19 +19,25 @@ const ChessTrainer: React.FC<ChessTrainerProps> = ({ gameErrors }) => {
   const [markerType, setMarkerType] = useState<"best" | "wrong" | null>(null);
 
   const gameError = gameErrors[currentIndex.x]?.[currentIndex.y];
+
   const colorToPlay =
     gameErrors[currentIndex.x] &&
     (gameErrors[currentIndex.x][currentIndex.y].colorToPlay as
       | "black"
       | "white");
+
   const bestMove =
     gameErrors[currentIndex.x] &&
     gameErrors[currentIndex.x][currentIndex.y].evaluation.best;
 
+  const moveToNextPuzzle = () => {
+    setMarkerType(null);
+    getNextPosition(gameErrors, currentIndex, setCurrentIndex, setFen);
+  };
+
   return (
     <div className="flex flex-row-reverse justify-center items-center gap-10">
       <InfoDisplay gameError={gameError} fen={fen} />
-
       <BoardManager
         initialFen={fen}
         gameError={gameError}
@@ -48,10 +54,7 @@ const ChessTrainer: React.FC<ChessTrainerProps> = ({ gameErrors }) => {
 
       <p
         className="bg-blue-500 text-white font-bold py-4 px-8 rounded-full flex items-center justify-center cursor-pointer hover:bg-blue-600 transition duration-300"
-        onClick={() => {
-          setMarkerType(null);
-          getNextPosition(gameErrors, currentIndex, setCurrentIndex, setFen);
-        }}
+        onClick={moveToNextPuzzle}
       >
         <span>
           {fen !== STARTINGPOSFEN ? "Continue Training" : "Start Training"}

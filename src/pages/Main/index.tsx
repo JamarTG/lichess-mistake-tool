@@ -1,11 +1,11 @@
 import { FormEvent, useState } from "react";
 import { INITIAL_FORM_STATE } from "../../constants";
 import ChessTrainer from "../ChessTrainer";
-import ParamsForm from "./ParamsForm";
 import { ErrorData } from "../../types";
 import { API_BASE_URL } from "../../constants";
 import { splitNDJSON } from "../../utils/splitNDJSON";
 import getErrorData from "../../utils/getErrorData";
+import CriteriaForm from "./CriteriaForm";
 
 const Main = () => {
   const [formData, setFormData] = useState(INITIAL_FORM_STATE);
@@ -60,23 +60,21 @@ const Main = () => {
   };
 
   return (
-    <div>
+    <>
       {formData.username &&
       formData.maxNoGames &&
       formData.startDate &&
       formData.endDate &&
       formSubmitted ? (
-        <div>
-          <ChessTrainer gameErrors={gameErrors} />
-        </div>
+        <ChessTrainer gameErrors={gameErrors} />
       ) : (
-        <ParamsForm
+        <CriteriaForm
           formData={formData}
           setFormData={setFormData}
           handleSubmit={handleSubmit}
         />
       )}
-    </div>
+    </>
   );
 };
 

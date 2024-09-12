@@ -7,7 +7,6 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const Button: React.FC<ButtonProps> = ({ children, level, size, ...props }) => {
-  const w = size == "sm" ? 32 : 48;
 
   const levelStyles =
     level === "primary"

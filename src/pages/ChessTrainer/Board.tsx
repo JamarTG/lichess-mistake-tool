@@ -47,8 +47,7 @@ const BoardManager: React.FC<BoardProps> = ({
   gameError,
 }) => {
   const [game, setGame] = useState<Chess>(new Chess(initialFen));
-  const [moveInSan, setMoveInSan] = useState<string | null | undefined>(null);
-
+ 
   useEffect(() => {
     const newGame = new Chess(fen);
     setGame(newGame);

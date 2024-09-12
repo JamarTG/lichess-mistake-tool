@@ -56,16 +56,14 @@ const CriteriaForm: React.FC<ParamsFormProps> = ({
               </label>
               <div className="mt-2">
                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-white focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <span className=" dark:[color-scheme:dark] bg-gray-900 flex select-none items-center pl-3 text-white sm:text-md">
-                    lichess.org/@/
-                  </span>
+               
                   <input
                     id="username"
                     name="username"
                     type="text"
                     placeholder="jamarithegreat"
                     autoComplete="username"
-                    className="dark:[color-scheme:dark] bg-gray-900 h-11 block flex-1 border-0 py-1.5 pl-1 text-white placeholder:text-gray-600 focus:ring-0 sm:text-md sm:leading-6"
+                    className="dark:[color-scheme:dark] bg-gray-900 block w-full h-11 rounded-md border-0 py-1.5 text-gray-400 shadow-sm ring-1 ring-inset ring-white-300 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6"
                     value={formData.username}
                     onChange={(e) => handleNameChange(e)}
                   />

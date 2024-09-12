@@ -1,18 +1,29 @@
-import { MouseEventHandler } from "react";
+import React, { ButtonHTMLAttributes } from "react";
 
-interface ButtonProps {
-  text: string;
-  onClick: MouseEventHandler;
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children?: React.ReactNode;
+  level: "primary" | "secondary";
+  size: "sm" | "lg";
 }
 
-const Button: React.FC<ButtonProps> = ({ text, onClick }) => {
+const Button: React.FC<ButtonProps> = ({ children, level, size, ...props }) => {
+  const w = size == "sm" ? 32 : 48;
+
+  const levelStyles =
+    level === "primary"
+      ? `w-${
+          size == "sm" ? 26 : 36
+        } text-white bg-gray-900/50 border border-2 border-indigo-800/30 hover:border-indigo-800`
+      : `w-${
+          size == "sm" ? 26 : 36
+        } text-white border border-2  border-gray-600  focus-visible:outline-indigo-200 `;
+
   return (
     <button
-      type="button"
-      onClick={onClick}
-      className={`mt-5 hover:text-green-500 rounded-lg text-lg text-green-800 px-5 py-2.5 text-center inline-flex items-center me-2 `}
+      className={`flex justify-center items-center gap-7 rounded-lg px-3 py-2 text-md font-semibold shadow-sm ${levelStyles} transition-transform transform active:scale-95 active:shadow-lg active:translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2`}
+      {...props}
     >
-      {text}
+      {children}
     </button>
   );
 };

@@ -1,47 +1,48 @@
 import React from "react";
 import { ErrorData } from "../../types";
 import { STARTINGPOSFEN } from "../../constants";
+import Perf from "./Perf";
+import Link from "./Link";
+import Player from "./Player";
 
 interface InfoDisplayProps {
   gameError: ErrorData;
-  fen : string;
+  fen: string;
 }
 
-const InfoDisplay: React.FC<InfoDisplayProps> = ({ gameError , fen }) => {
-  const containerStyles = 'bg-white rounded-lg p-5 flex flex-col space-y-5 w-80 h-72';
-  
-  if(fen == STARTINGPOSFEN) {
-    return <div className={containerStyles}></div>
+const InfoDisplay: React.FC<InfoDisplayProps> = ({ gameError, fen }) => {
+  if (fen == STARTINGPOSFEN) {
+    return (
+      <div
+        className={
+          "text-white rounded-lg p-5 flex flex-col space-y-5 w-80 h-72"
+        }
+      ></div>
+    );
   }
-  
+
   return (
-    <div className={containerStyles}>
-      <div className="rounded-lg ">
-        <p>
-          <a
-            href={`https://lichess.org/${gameError.game_id}`}
-            target="_blank"
-            className="text-red-600"
-            rel="noopener noreferrer"
-          >
-            {gameError.game_id}
-          </a>
-        </p>
-        <p className="inline-block text-center bg-blue-100 text-blue-800 text-xs my-1 font-medium px-3 py-1 rounded-lg  dark:text-blue-400 border border-blue-400">
-          {gameError.variant} • {gameError.rated ? "rated" : "casual"} •{" "}
-          {gameError.perf}
-        </p>
-        <p>
-          {gameError.players.white.user.toLocaleLowerCase()} (
-          {gameError.players.white.rating}) vs{" "}
-          {gameError.players.black.user.toLocaleLowerCase()} (
-          {gameError.players.black.rating})
-        </p>
+    <div
+      className={"text-white rounded-lg p-5 flex flex-col space-y-5 w-80 h-72 "}
+    >
+      <div className="rounded-lg flex flex-col gap-5">
+        <div className="flex flex-col justify-center items-center gap-2">
+          <Perf perf={gameError.perf as "blitz" | "rapid" | "classical"} />
+          <Link gameID={gameError.game_id} />
+          <div className="flex justify-center items-center gap-5">
+            <p>Standard</p>
+            {" - "}
+            <p>{gameError.rated ? "Rated" : "Casual"}</p>
+          </div>
+        </div>
+
+        <Player
+          white={gameError.players.white}
+          black={gameError.players.black}
+        />
       </div>
 
       <div className="flex flex-col justify-between gap-4 ">
-      
-
         <div className="flex items-center">
           <p className="flex gap-3 justify-center items-center">
             <img

@@ -7,9 +7,8 @@ import Main from "./pages/Main/index.tsx";
 const App = () => {
   return (
     <Router>
-      <Navbar />
-      <div className="h-full flex flex-col p-6">
-        
+      <div className="h-full md:h-screen flex flex-col p-6">
+        <Navbar />
         <div className="flex-grow flex justify-center items-center">
           <Routes>
             <Route path="/" element={<Main />} />

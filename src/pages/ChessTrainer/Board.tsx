@@ -17,6 +17,7 @@ import getMarkerStyles from "../../utils/getMarkerStyles";
 import { ErrorData } from "../../types";
 import { Arrow } from "react-chessboard/dist/chessboard/types";
 
+
 type BoardProps = {
   initialFen: string;
   fen: string;
@@ -131,19 +132,24 @@ const BoardManager: React.FC<BoardProps> = ({
     return [move?.from, move?.to, move?.from && move.to ? "red" : ""];
   };
 
+
   return (
     <div className="flex flex-row gap-5 justify-center items-center">
       <div
+      className="flex flex-col gap-3"
         style={{
           ...customBoardStyles,
           width: boardDimension.WIDTH,
           height: boardDimension.HEIGHT,
+          aspectRatio: "1 / 1",
         }}
       >
+    
         <Chessboard
           position={fen}
           onPieceDrop={handlePieceDrop}
-          boardWidth={boardDimension.WIDTH}
+          boardWidth={600}
+     
           boardOrientation={colorToPlay}
           customArrows={[convertMove(gameError?.move) as Arrow]}
         />

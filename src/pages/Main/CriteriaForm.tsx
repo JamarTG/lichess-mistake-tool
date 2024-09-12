@@ -1,5 +1,6 @@
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction } from "react";
 import { FormData } from "../../types";
+import Button from "../../components/Button";
 
 interface ParamsFormProps {
   formData: FormData;
@@ -38,14 +39,14 @@ const CriteriaForm: React.FC<ParamsFormProps> = ({
   };
 
   return (
-    <form className="p-6">
-      <div className=" border-white-900/10 pb-12">
+    <form className="p-6 mt-6">
+      <div className=" border-white-900/10">
         <div className="space-y-2">
-        <h1 className="text-3xl font-bold text-white ">Specify Training Set</h1>
-
-        <br />
+          <p className="text-gray-400 my-8">
+            Use the form below to specify the criteria for selecting games to
+            include in your training set.
+          </p>
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-            
             <div className="sm:col-span-4">
               <label
                 htmlFor="username"
@@ -55,7 +56,7 @@ const CriteriaForm: React.FC<ParamsFormProps> = ({
               </label>
               <div className="mt-2">
                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-white focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <span className="flex select-none items-center pl-3 text-white sm:text-md">
+                  <span className=" dark:[color-scheme:dark] bg-gray-900 flex select-none items-center pl-3 text-white sm:text-md">
                     lichess.org/@/
                   </span>
                   <input
@@ -64,7 +65,7 @@ const CriteriaForm: React.FC<ParamsFormProps> = ({
                     type="text"
                     placeholder="jamarithegreat"
                     autoComplete="username"
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-600 focus:ring-0 sm:text-md sm:leading-6"
+                    className="dark:[color-scheme:dark] bg-gray-900 h-11 block flex-1 border-0 py-1.5 pl-1 text-white placeholder:text-gray-600 focus:ring-0 sm:text-md sm:leading-6"
                     value={formData.username}
                     onChange={(e) => handleNameChange(e)}
                   />
@@ -79,7 +80,7 @@ const CriteriaForm: React.FC<ParamsFormProps> = ({
             <div className="sm:col-span-2">
               <label
                 htmlFor="startdate"
-                className="dark:[color-scheme:dark] bg-gray-900 block text-md font-medium leading-6 text-white"
+                className="dark:[color-scheme:dark] block text-md font-medium leading-6 text-white"
               >
                 Start Date
               </label>
@@ -89,7 +90,7 @@ const CriteriaForm: React.FC<ParamsFormProps> = ({
                   name="startdate"
                   type="date"
                   autoComplete="address-level1"
-                  className="dark:[color-scheme:dark] bg-gray-900 block w-full rounded-md border-0 py-1.5 text-gray-400 shadow-sm ring-1 ring-inset ring-white-300 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6"
+                  className="dark:[color-scheme:dark] bg-gray-900 block w-full h-11 rounded-md border-0 py-1.5 text-gray-400 shadow-sm ring-1 ring-inset ring-white-300 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6"
                   value={formData.startDate}
                   onChange={(e) => {
                     handleDateChange("start", e);
@@ -111,7 +112,7 @@ const CriteriaForm: React.FC<ParamsFormProps> = ({
                   name="postal-code"
                   type="date"
                   autoComplete="enddate"
-                  className="dark:[color-scheme:dark] bg-gray-900 block w-full rounded-md border-0 py-1.5 text-gray-400 shadow-sm ring-1 ring-inset ring-white-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6"
+                  className="dark:[color-scheme:dark] bg-gray-900 block w-full h-11 rounded-md border-0 py-1.5 text-gray-400 shadow-sm ring-1 ring-inset ring-white-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6"
                   value={formData.endDate}
                   onChange={(e) => {
                     handleDateChange("end", e);
@@ -134,17 +135,17 @@ const CriteriaForm: React.FC<ParamsFormProps> = ({
                   type="text"
                   placeholder="20"
                   autoComplete="address-level2"
-                  className="dark:[color-scheme:dark] bg-gray-900 block w-full rounded-md border-0 py-1.5 text-gray-400 shadow-sm ring-1 ring-inset ring-white-300 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6"
+                  className="dark:[color-scheme:dark] bg-gray-900 block w-full h-11 rounded-md border-0 py-1.5 text-gray-400 shadow-sm ring-1 ring-inset ring-white-300 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6"
                   value={formData.maxNoGames}
                   onChange={(e) => handleMaxGamesChange(e)}
                   required
-               />
+                />
               </div>
             </div>
           </div>
         </div>
 
-        <div className="border-white/10 pb-12 mt-5">
+        {/* <div className="border-white/10 pb-12 mt-5">
           <h2 className="mt-1 pb-4 text-lg leading-6 text-white font-semibold">
             How to include games in pool?
           </h2>
@@ -178,23 +179,16 @@ const CriteriaForm: React.FC<ParamsFormProps> = ({
               </span>
             </li>
           </ol>
-        </div>
+        </div> */}
       </div>
 
       <div className="flex items-center justify-end gap-x-6">
-        <button
-          type="button"
-          className="text-md font-semibold leading-6 text-white"
-        >
+        <Button type="button" level="secondary" size="sm">
           Cancel
-        </button>
-        <button
-          type="submit"
-          className="rounded-md bg-indigo-600 px-3 py-2 text-md font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          onClick={(e) => handleSubmit(e)}
-       >
-          Train
-        </button>
+        </Button>
+        <Button size="lg" level="primary" onClick={(e) => handleSubmit(e)}>
+          Start Session
+        </Button>
       </div>
     </form>
   );

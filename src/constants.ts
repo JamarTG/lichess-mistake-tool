@@ -23,6 +23,7 @@ export const customBoardStyles = {
   borderRadius: "5px",
   boxShadow: "0 15px 15px rgba(0,0,0,0.3)",
   position: "relative" as const,
+
 };
 
 export const boardDimension = {

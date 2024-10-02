@@ -1,6 +1,7 @@
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction } from "react";
 import { FormData } from "../../types";
 import Button from "../../components/Button";
+import React from "react";
 
 interface ParamsFormProps {
   formData: FormData;

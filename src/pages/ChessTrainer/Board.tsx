@@ -5,6 +5,7 @@ import React, {
   Dispatch,
   SetStateAction,
   CSSProperties,
+  useRef,
 } from "react";
 
 import { Chessboard } from "react-chessboard";
@@ -16,7 +17,6 @@ import { normalizeCastlingMove } from "../../utils/normalizeCastle";
 import getMarkerStyles from "../../utils/getMarkerStyles";
 import { ErrorData } from "../../types";
 import { Arrow } from "react-chessboard/dist/chessboard/types";
-
 
 type BoardProps = {
   initialFen: string;
@@ -47,7 +47,24 @@ const BoardManager: React.FC<BoardProps> = ({
   gameError,
 }) => {
   const [game, setGame] = useState<Chess>(new Chess(initialFen));
- 
+  const [boardSize, setBoardSize] = useState<number>(400); // Default size
+  const boardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const updateBoardSize = () => {
+      if (boardRef.current) {
+        const width = Math.min(window.innerWidth * 0.8, 500); // 80% of viewport width or up to 600px
+        setBoardSize(width);
+        console.log(boardSize);
+      }
+    };
+
+    updateBoardSize(); // Initial size calculation
+    window.addEventListener("resize", updateBoardSize); // Update size on resize
+
+    return () => window.removeEventListener("resize", updateBoardSize);
+  }, []);
+
   useEffect(() => {
     const newGame = new Chess(fen);
     setGame(newGame);
@@ -131,28 +148,22 @@ const BoardManager: React.FC<BoardProps> = ({
     return [move?.from, move?.to, move?.from && move.to ? "red" : ""];
   };
 
-
   return (
-    <div className="flex flex-row gap-5 justify-center items-center">
-      <div
-      className="flex flex-col gap-3"
-        style={{
-          ...customBoardStyles,
-          width: boardDimension.WIDTH,
-          height: boardDimension.HEIGHT,
-          aspectRatio: "1 / 1",
-        }}
-      >
-    
+    <div
+      className="bg-red-500 flex-grow"
+      style={{
+        maxWidth: "100%",
+        height: "auto",
+      }}
+    >
+      <div className="relative w-full max-w-md mx-auto">
         <Chessboard
           position={fen}
           onPieceDrop={handlePieceDrop}
-          boardWidth={600}
-     
           boardOrientation={colorToPlay}
           customArrows={[convertMove(gameError?.move) as Arrow]}
+          boardWidth={Math.min(window.innerWidth - 40, 600)} // Adjust width dynamically
         />
-
         {bestMoveMarker && <div style={markerStyle as CSSProperties} />}
       </div>
     </div>

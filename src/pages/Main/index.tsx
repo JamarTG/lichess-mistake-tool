@@ -60,7 +60,7 @@ const Main = () => {
   };
 
   return (
-    <>
+    <div className="bg-red-100 flex justify-center px-1" style={{height:"100%"}}>
       {formData.username &&
       formData.maxNoGames &&
       formData.startDate &&
@@ -74,7 +74,7 @@ const Main = () => {
           handleSubmit={handleSubmit}
         />
       )}
-    </>
+    </div>
   );
 };
 
